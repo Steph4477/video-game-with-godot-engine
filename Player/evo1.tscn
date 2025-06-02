@@ -1,0 +1,153 @@
+[gd_scene load_steps=21 format=3 uid="uid://cbxfe41yjfrlh"]
+
+[ext_resource type="Script" uid="uid://jtgtjw7odld8" path="res://Player/evo_1.gd" id="1_5psm4"]
+[ext_resource type="Texture2D" uid="uid://crjpji6bcfj0b" path="res://Player/2idle.png" id="2_j3qaj"]
+[ext_resource type="Texture2D" uid="uid://vdd8mvvr4fa3" path="res://Player/2jump4.png" id="4_no3im"]
+[ext_resource type="Texture2D" uid="uid://dnlrs7n5ds4di" path="res://Player/2jump1.png" id="5_1casu"]
+[ext_resource type="Texture2D" uid="uid://bnmgkg5lgqb4r" path="res://Player/2walk1.png" id="6_tj6lq"]
+[ext_resource type="Texture2D" uid="uid://bilj6yc1uvvb7" path="res://Player/2walk2.png" id="7_maao0"]
+[ext_resource type="Texture2D" uid="uid://r4tm6siy4qma" path="res://Interface/gauche.png" id="9_tj6lq"]
+[ext_resource type="Texture2D" uid="uid://b6ct81pls4cp0" path="res://Interface/gauche_enfonce.png" id="10_jjtta"]
+[ext_resource type="Texture2D" uid="uid://o400dwetmtll" path="res://Interface/droite.png" id="11_vbwkl"]
+[ext_resource type="Texture2D" uid="uid://dywakmxincaqc" path="res://Interface/droite_enfonce.png" id="12_rbgwy"]
+[ext_resource type="Texture2D" uid="uid://p7k7s0begd7n" path="res://Interface/haut.png" id="13_typba"]
+[ext_resource type="Texture2D" uid="uid://76cu1cx05mjq" path="res://Interface/haut_enfonce.png" id="14_i1uru"]
+[ext_resource type="Texture2D" uid="uid://c8lulawk433bo" path="res://Interface/Tir.png" id="15_p8mbp"]
+[ext_resource type="Texture2D" uid="uid://cnmjjufl1wf5i" path="res://Interface/Tir_enfonce.png" id="16_efgfv"]
+[ext_resource type="Texture2D" uid="uid://buis4d4klok3u" path="res://Interface/bas.png" id="17_ms575"]
+[ext_resource type="Texture2D" uid="uid://dp88mftco8upj" path="res://Interface/bas_enfonce.png" id="18_kse80"]
+[ext_resource type="Script" uid="uid://dlqm6ytxqsbjj" path="res://Player/camera_2d.gd" id="18_vbwkl"]
+[ext_resource type="PackedScene" uid="uid://healthbar" path="res://Player/HealthBar/HealthBar.tscn" id="19_rbgwy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j3qaj"]
+size = Vector2(21.9941, 27.1739)
+
+[sub_resource type="SpriteFrames" id="2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_j3qaj")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_no3im")
+}],
+"loop": true,
+"name": &"jump_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_1casu")
+}],
+"loop": true,
+"name": &"jump_up",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_tj6lq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_maao0")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[node name="player" type="CharacterBody2D" groups=["Player"]]
+z_index = 1
+position = Vector2(304, 122)
+collision_layer = 0
+collision_mask = 334
+script = ExtResource("1_5psm4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(153.907, 64)
+scale = Vector2(3.91858, 3.68)
+shape = SubResource("RectangleShape2D_j3qaj")
+
+[node name="anim" type="AnimatedSprite2D" parent="."]
+position = Vector2(145, 69.7545)
+scale = Vector2(0.15, 0.135)
+sprite_frames = SubResource("2")
+animation = &"walk"
+frame = 1
+frame_progress = 0.451446
+
+[node name="HealthBar" parent="." instance=ExtResource("19_rbgwy")]
+position = Vector2(115, -11)
+scale = Vector2(0.647, 0.59)
+
+[node name="TurnAxis" type="Marker2D" parent="."]
+position = Vector2(140, 65)
+rotation = 0.785398
+
+[node name="CastPoint" type="Marker2D" parent="TurnAxis"]
+position = Vector2(41.033, -18.9035)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Gamepad" type="Node2D" parent="CanvasLayer"]
+
+[node name="Left" type="TouchScreenButton" parent="CanvasLayer/Gamepad"]
+position = Vector2(1773, 1017)
+scale = Vector2(0.655018, -0.619343)
+texture_normal = ExtResource("9_tj6lq")
+texture_pressed = ExtResource("10_jjtta")
+action = "ui_left"
+
+[node name="Right" type="TouchScreenButton" parent="CanvasLayer/Gamepad"]
+position = Vector2(1852, 965)
+scale = Vector2(0.642136, 0.59551)
+texture_normal = ExtResource("11_vbwkl")
+texture_pressed = ExtResource("12_rbgwy")
+action = "ui_right"
+
+[node name="Jump" type="TouchScreenButton" parent="CanvasLayer/Gamepad"]
+position = Vector2(1810, 927)
+scale = Vector2(0.692177, 0.587777)
+texture_normal = ExtResource("13_typba")
+texture_pressed = ExtResource("14_i1uru")
+action = "ui_jump"
+
+[node name="Shoot" type="TouchScreenButton" parent="CanvasLayer/Gamepad"]
+position = Vector2(19, 944)
+scale = Vector2(1.02172, 0.946007)
+texture_normal = ExtResource("15_p8mbp")
+texture_pressed = ExtResource("16_efgfv")
+action = " space "
+
+[node name="down" type="TouchScreenButton" parent="CanvasLayer/Gamepad"]
+position = Vector2(1812, 1005)
+scale = Vector2(0.679628, 0.560707)
+texture_normal = ExtResource("17_ms575")
+texture_pressed = ExtResource("18_kse80")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(159, 59)
+scale = Vector2(0.974509, 0.984421)
+zoom = Vector2(0.5, 0.5)
+limit_left = -300
+limit_top = 0
+limit_right = 8000
+limit_bottom = 2700
+limit_smoothed = true
+script = ExtResource("18_vbwkl")
+
+[connection signal="pressed" from="CanvasLayer/Gamepad/Left" to="." method="_on_left_pressed"]
+[connection signal="released" from="CanvasLayer/Gamepad/Left" to="." method="_on_left_released"]
+[connection signal="pressed" from="CanvasLayer/Gamepad/Right" to="." method="_on_right_pressed"]
+[connection signal="released" from="CanvasLayer/Gamepad/Right" to="." method="_on_right_released"]
+[connection signal="pressed" from="CanvasLayer/Gamepad/Jump" to="." method="_on_jump_pressed"]
+[connection signal="released" from="CanvasLayer/Gamepad/Jump" to="." method="_on_jump_released"]
+[connection signal="pressed" from="CanvasLayer/Gamepad/Shoot" to="." method="_on_shoot_pressed"]
+[connection signal="pressed" from="CanvasLayer/Gamepad/Shoot" to="." method="_on_tir_pressed"]
+[connection signal="released" from="CanvasLayer/Gamepad/Shoot" to="." method="_on_shoot_released"]
+[connection signal="pressed" from="CanvasLayer/Gamepad/down" to="." method="_on_down_pressed"]
+[connection signal="released" from="CanvasLayer/Gamepad/down" to="." method="_on_down_released"]

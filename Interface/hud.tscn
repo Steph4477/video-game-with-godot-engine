@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://cn0x2ue3ec5ba"]
+
+[ext_resource type="Texture2D" uid="uid://r4tm6siy4qma" path="res://Interface/gauche.png" id="1_1uf33"]
+[ext_resource type="Texture2D" uid="uid://b6ct81pls4cp0" path="res://Interface/gauche_enfonce.png" id="2_28tah"]
+
+[node name="Hud" type="CanvasLayer"]
+
+[node name="Gamepad" type="Node2D" parent="."]
+
+[node name="Left" type="TouchScreenButton" parent="Gamepad"]
+position = Vector2(1408, 786)
+scale = Vector2(1.67012, 1.66667)
+texture_normal = ExtResource("1_1uf33")
+texture_pressed = ExtResource("2_28tah")
+action = "ui_left"
+
+[node name="Right" type="TouchScreenButton" parent="Gamepad"]
+position = Vector2(259, 1644)
+scale = Vector2(1.71111, 1.71111)
+action = "ui_right"
+
+[node name="Jump" type="TouchScreenButton" parent="Gamepad"]
+position = Vector2(123, 1530)
+scale = Vector2(1.84444, 1.68889)
+action = "ui_jump"
+
+[node name="Tir" type="TouchScreenButton" parent="Gamepad"]
+position = Vector2(823, 1595)
+scale = Vector2(2.19149, 2.19149)
+
+[node name="down" type="TouchScreenButton" parent="Gamepad"]
+position = Vector2(132, 1765)
+scale = Vector2(1.81111, 1.61111)

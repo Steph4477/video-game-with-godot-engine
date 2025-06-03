@@ -7,4 +7,6 @@
 *.tmp
 *.log
 mono/
+scene/
+
 

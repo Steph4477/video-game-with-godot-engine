@@ -49,8 +49,8 @@ Help Moko:
 
 ## 📷 Screenshots & Media
 
-> *Coming soon: screen shoot and gameplay trailer*
-
+![Mon image](https://imgur.com/CvDUPJQ.png)
+![Mon image](https://imgur.com/aJu1gpR.png)
 ---
 
 ## 🔧 Installation
@@ -77,6 +77,15 @@ cd video-game-with-godot-engine
 
 ## 📄 License
 
-This project is open-source and available under the [MIT License](LICENSE).
+Copyright © 2025 *Island Evolution – Rise of the Jungle Hero*
+
+All rights reserved.
+
+This project and all its contents are the intellectual property of the author.
+
+You may not copy, modify, distribute, sublicense, or use any part of this project in any form, including for commercial or non-commercial purposes, without explicit written permission from the author.
+
+Unauthorized use is strictly prohibited and may lead to legal action.
+
 
 ---

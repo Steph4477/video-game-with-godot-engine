@@ -1,4 +1,3 @@
-````markdown
 # 🏝️ Island Evolution
 
 A 2D platform-adventure game developed with **Godot Engine**, where a small monkey evolves by collecting loot (abs, bonuses, etc.) and fights various enemies!

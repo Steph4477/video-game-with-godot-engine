@@ -1,83 +1,82 @@
-# 🏝️ Pitch - *Island Evolution*
+# 🏝️ *Island Evolution – Rise of the Jungle Hero*
 
-A 2D platform-adventure game developed with **Godot Engine**, where a small monkey evolves by collecting loot (abs, bonuses, etc.) and fights various enemies!
+> A 2D platform-adventure game made with **Godot 4**, where a mischievous monkey evolves through magical loot and battles corrupted creatures in a vibrant, cartoon world!
 
 ---
 
-# 🐵 Scenario 
+## 🐵 Scenario
 
-**Title:** *Island Evolution – Rise of the Jungle Hero*
+### 🌴 The Setting
 
-### 🌴 Setting
-
-Lost in the heart of a mysterious archipelago, **Moko**, a mischievous young monkey, awakens on a volcanic island cursed by an ancient force. The natural world is in chaos — mutated creatures and oversized plants roam freely, all under the control of a dark power: the **Obsidian Totem**.
+Lost in the heart of a mysterious archipelago, **Moko**, a cheeky young monkey, awakens on a volcanic island cursed by an ancient power. The ecosystem is in turmoil — mutated beasts and massive flora roam the land, all under the influence of the dark and twisted **Obsidian Totem**.
 
 ### 🧪 The Twist
 
-Moko soon discovers he has a rare gift: **Totemic Evolution**. Each loot he collects — magical abs, tribal masks, or ancient fruits — gives him new powers and transforms his appearance.
-But every power has a cost. Some loots change his behavior, and he must learn to master these evolutions to survive.
+Moko possesses a rare gift: **Totemic Evolution**.
+Every loot he collects — 🍌 *tribal fruits*, 🎭 *ancestral masks*, or 💠 *totemic essences* — grants him **new powers** and **transforms his appearance**.
 
-### 🧭 Objective
+But beware — every power has a price. Some loot may affect his behavior or abilities in unexpected ways...
 
-To restore balance, Moko must:
+### 🧭 The Quest
 
-1. **Explore** diverse zones across the islands: lush jungle, lava caves, sunken temples, sky peaks...
-2. **Battle** corrupted enemies like **Scormards**, **toxic mushrooms**, and **stone guardians**.
-3. **Find sacred artifacts** and place them in ancient shrines to weaken the Obsidian Totem.
-4. **Reach the final island** for an epic showdown.
+Help Moko:
 
-### 🌟 Core Themes
-
-* Character evolution through loot (visual + gameplay changes)
-* Cartoon-style humor and aesthetic
-* A message about nature, personal growth, and overcoming inner challenges
+1. 🗺️ **Explore** diverse islands: lush jungles, lava caves, sunken temples, and sky-high peaks.
+2. ⚔️ **Fight** corrupted enemies like the venomous **Scormards**, ☠️ **toxic mushrooms**, and colossal **stone guardians**.
+3. 🛕 **Recover sacred artifacts** to weaken the Obsidian Totem's grip.
+4. 🔥 **Reach the final island** for an epic, transformative showdown.
 
 ---
 
-# 🕹️ Features
+## 🌟 Core Themes
 
-- 🐒 **Evolving main character** — visually and in abilities
-- 💥 **Combat system** — fight against a variety of enemies
-- 🎮 **Loot system** — collect upgrades, visual items, and bonuses
-- ✨ **Smooth animations** using `AnimatedSprite2D`
-- ⚔️ **Damage, collision, and particle systems**
-- 🎨 Custom-made sprites and visual assets
+* Evolution and transformation (visual + gameplay)
+* Cartoon-style humor and vibrant aesthetics
+* A message about nature, growth, and mastering inner chaos
 
 ---
 
-# 🔧 Installation
+## 🕹️ Features
 
-### 1. Requirements
+* 🐒 **Evolving main character** — with visible transformations and new abilities
+* 💥 **Dynamic combat system** — take down a variety of enemies and minibosses
+* 🎁 **Loot-driven upgrades** — each item changes how Moko plays
+* ✨ **Smooth 2D animations** with `AnimatedSprite2D`
+* 🔥 **Particle effects**, damage, and collision systems
+* 🎨 Fully custom sprites and visual assets
 
-- [Godot Engine 4.x (stable version)](https://godotengine.org/download)
+---
 
-### 2. Clone the project
+## 📷 Screenshots & Media
+
+> *Coming soon: screen shoot and gameplay trailer*
+
+---
+
+## 🔧 Installation
+
+### Requirements
+
+* [Godot Engine 4.x (stable)](https://godotengine.org/download)
+
+### Clone and Run
 
 ```bash
 git clone https://github.com/<YOUR_USERNAME>/video-game-with-godot-engine.git
 cd video-game-with-godot-engine
-````
-
-### 3. Open in Godot
+```
 
 1. Launch **Godot Engine**
 2. Click on **"Import"**
-3. Select the `project.godot` file located in the project folder
-4. Click **"Open"** and start playing or editing!
+3. Select the `project.godot` file in the project folder
+4. Click **"Open"** to run or edit the game
+
+> ⚠️ *This game is currently in active development. Best run using the Godot Editor.*
 
 ---
 
-
-# 🤝 Contributing
-
-Pull requests are welcome! Feel free to open issues to suggest features or report bugs.
-
----
-
-# 📄 License
+## 📄 License
 
 This project is open-source and available under the [MIT License](LICENSE).
 
 ---
-
-

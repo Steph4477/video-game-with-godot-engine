@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://blvusydsj0qy2" path="res://scene/menu.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://c0wq2d10u4c5s" path="res://Menu/Decors/FeuillePersonnage.png" id="2_yn7vu"]
 [ext_resource type="Texture2D" uid="uid://1pxd58ov5bl5" path="res://scene/enemyprofil.png" id="3"]
-[ext_resource type="Texture2D" uid="uid://uqroitgemmoy" path="res://scene/champi.png" id="3_vo2wl"]
+[ext_resource type="Texture2D" uid="uid://npm8tt4hfufw" path="res://scene/champi.png" id="3_vo2wl"]
 [ext_resource type="Texture2D" uid="uid://du8hyg48pnw4q" path="res://Interface/bouton_Démarrer.png" id="6_bfdrb"]
 [ext_resource type="Texture2D" uid="uid://rgpxojet850c" path="res://scene/robot/stand up2.png" id="7"]
 [ext_resource type="Texture2D" uid="uid://vin1w2o72qar" path="res://Interface/boutonenfoncé.png" id="7_8newj"]

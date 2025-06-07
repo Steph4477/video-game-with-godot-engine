@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bs7hsk1kl1l68" path="res://ItemsDecors/piques1.2.png" id="6_nklpm"]
 [ext_resource type="PackedScene" uid="uid://dramn3tiqxtnt" path="res://Enemies/scormard.tscn" id="8_gth1v"]
 [ext_resource type="PackedScene" uid="uid://dujtfl8q5or8" path="res://Loot/abdo.tscn" id="9_yj1qu"]
-[ext_resource type="PackedScene" uid="uid://vank7dwfs7p1" path="res://lvl1/Decors/decor.tscn" id="10_nklpm"]
+[ext_resource type="PackedScene" uid="uid://tagnybpxlmi" path="res://lvl1/Decors/decor.tscn" id="10_nklpm"]
 
 [sub_resource type="SpriteFrames" id="1"]
 animations = [{

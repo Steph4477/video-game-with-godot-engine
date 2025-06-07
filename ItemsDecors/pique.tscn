@@ -28,7 +28,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="2"]
-size = Vector2(599.44, 361.971)
+size = Vector2(599.44, 119.701)
 
 [node name="pique" type="AnimatedSprite2D" groups=["enemies"]]
 position = Vector2(401.586, 1286)
@@ -38,12 +38,12 @@ animation = &"pique"
 frame_progress = 0.252164
 script = ExtResource("3_y2gyf")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." groups=["enemies"]]
 position = Vector2(-8.71507, -218.527)
 collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(6.99036, 139.504)
+position = Vector2(6.99036, 223.625)
 scale = Vector2(1.04679, 1.36292)
 shape = SubResource("2")
 

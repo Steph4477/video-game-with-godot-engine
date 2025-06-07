@@ -1,6 +1,6 @@
-[gd_scene load_steps=20 format=3 uid="uid://n8rno2pqq1d0"]
+[gd_scene load_steps=19 format=3 uid="uid://n8rno2pqq1d0"]
 
-[ext_resource type="Script" uid="uid://jtgtjw7odld8" path="res://Player/evo_1.gd" id="1_6ds3b"]
+[ext_resource type="Script" uid="uid://dyeicmeurx1u6" path="res://Player/evo_2.gd" id="1_px5qv"]
 [ext_resource type="Texture2D" uid="uid://5rhsrdp8mupj" path="res://Player/idle_abdo.png" id="2_br2bb"]
 [ext_resource type="Texture2D" uid="uid://cv04ehcq6nabx" path="res://Player/jump2_abdo.png" id="3_6ds3b"]
 [ext_resource type="Texture2D" uid="uid://cgbgwtt3jy7pf" path="res://Player/jump3_abdo.png" id="4_dje13"]
@@ -16,10 +16,9 @@
 [ext_resource type="Texture2D" uid="uid://cnmjjufl1wf5i" path="res://Interface/Tir_enfonce.png" id="15_melu1"]
 [ext_resource type="Texture2D" uid="uid://buis4d4klok3u" path="res://Interface/bas.png" id="16_lqd0l"]
 [ext_resource type="Texture2D" uid="uid://dp88mftco8upj" path="res://Interface/bas_enfonce.png" id="17_ce3od"]
-[ext_resource type="Script" uid="uid://dlqm6ytxqsbjj" path="res://Player/camera_2d.gd" id="18_k4kgr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j3qaj"]
-size = Vector2(28.5817, 60.3261)
+size = Vector2(610, 648.937)
 
 [sub_resource type="SpriteFrames" id="2"]
 animations = [{
@@ -58,28 +57,27 @@ animations = [{
 
 [node name="player" type="CharacterBody2D" groups=["Player"]]
 z_index = 1
-position = Vector2(304, 122)
-collision_layer = 0
+position = Vector2(703, 539)
 collision_mask = 334
-script = ExtResource("1_6ds3b")
+script = ExtResource("1_px5qv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(141, 19)
-scale = Vector2(3.91858, 3.68)
+position = Vector2(149.5, 69.5)
+scale = Vector2(0.1, 0.094)
 shape = SubResource("RectangleShape2D_j3qaj")
 
 [node name="anim" type="AnimatedSprite2D" parent="."]
-position = Vector2(129, 26)
-scale = Vector2(0.3, 0.27)
+position = Vector2(145, 69.7545)
+scale = Vector2(0.1, 0.094)
 sprite_frames = SubResource("2")
-animation = &"idle"
+animation = &"jump_up"
 
 [node name="HealthBar" parent="." instance=ExtResource("7_hq058")]
-position = Vector2(105, -123)
-scale = Vector2(0.647, 0.59)
+position = Vector2(120, 22)
+scale = Vector2(0.1, 0.094)
 
 [node name="TurnAxis" type="Marker2D" parent="."]
-position = Vector2(140, 65)
+position = Vector2(108, 35.9077)
 rotation = 0.785398
 
 [node name="CastPoint" type="Marker2D" parent="TurnAxis"]
@@ -124,15 +122,13 @@ texture_normal = ExtResource("16_lqd0l")
 texture_pressed = ExtResource("17_ce3od")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(159, 59)
-scale = Vector2(0.974509, 0.984421)
-zoom = Vector2(0.5, 0.5)
-limit_left = -300
+position = Vector2(151, 61)
+zoom = Vector2(1.2, 1.2)
+limit_left = 0
 limit_top = 0
-limit_right = 8000
-limit_bottom = 2700
-limit_smoothed = true
-script = ExtResource("18_k4kgr")
+limit_right = 6500
+limit_bottom = 1500
+position_smoothing_enabled = true
 
 [connection signal="pressed" from="CanvasLayer/Gamepad/Left" to="." method="_on_left_pressed"]
 [connection signal="released" from="CanvasLayer/Gamepad/Left" to="." method="_on_left_released"]
@@ -140,8 +136,8 @@ script = ExtResource("18_k4kgr")
 [connection signal="released" from="CanvasLayer/Gamepad/Right" to="." method="_on_right_released"]
 [connection signal="pressed" from="CanvasLayer/Gamepad/Jump" to="." method="_on_jump_pressed"]
 [connection signal="released" from="CanvasLayer/Gamepad/Jump" to="." method="_on_jump_released"]
-[connection signal="pressed" from="CanvasLayer/Gamepad/Shoot" to="." method="_on_tir_pressed"]
 [connection signal="pressed" from="CanvasLayer/Gamepad/Shoot" to="." method="_on_shoot_pressed"]
+[connection signal="pressed" from="CanvasLayer/Gamepad/Shoot" to="." method="_on_tir_pressed"]
 [connection signal="released" from="CanvasLayer/Gamepad/Shoot" to="." method="_on_shoot_released"]
 [connection signal="pressed" from="CanvasLayer/Gamepad/down" to="." method="_on_down_pressed"]
 [connection signal="released" from="CanvasLayer/Gamepad/down" to="." method="_on_down_released"]

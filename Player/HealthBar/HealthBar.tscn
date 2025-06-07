@@ -40,8 +40,8 @@ func update_bar_style() -> void:
 script = SubResource("GDScript_msolp")
 
 [node name="TextureProgressBar" type="ProgressBar" parent="."]
-offset_right = 40.0
-offset_bottom = 18.0
+offset_right = 217.0
+offset_bottom = 80.0
 scale = Vector2(2.71782, 1)
 theme_override_styles/background = SubResource("StyleBoxFlat_msolp")
 max_value = 1000.0

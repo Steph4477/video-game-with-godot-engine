@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
-@export var speed = 800
-@export var jump_force = -1200
+@export var speed = 400
+@export var jump_force = -600
 @export var gravity = 1200
 @export var max_pv = 2000
 @onready var health_bar = $HealthBar/TextureProgressBar
@@ -19,6 +19,9 @@ var shooting = false
 var rate_of_fire = 0.4
 var moving_down = false
 var coin = 0
+
+func _ready():
+	$Camera2D.make_current()
 
 func _physics_process(delta: float) -> void:
 	# Gravité
@@ -102,7 +105,7 @@ func SkillLoop() -> void:
 		print("Le joueur tir !")
 		can_fire = false
 		var spell_instance = spell.instantiate()
-		##$sounds/bullet.play()
+		#$sounds/box.play()
 		var spawn_pos = get_node("TurnAxis/CastPoint").get_global_position()
 		var direction: int
 		if $anim.flip_h:

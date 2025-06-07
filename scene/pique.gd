@@ -1,10 +1,10 @@
-extends AnimatedSprite2D
+extends CharacterBody2D
 
 @export var damage: int = 500
 var can_hit := true
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body.is_in_group("player") and can_hit:
+	if body.is_in_group("Player") and can_hit:
 		can_hit = false
 		$anim.play("pique")
 		body.on_hit(damage)
@@ -12,5 +12,5 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		can_hit = true
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
-	if body.is_in_group("player"):
+	if body.is_in_group("Player"):
 		$anim.play("idle")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cbxfe41yjfrlh"]
+[gd_scene load_steps=20 format=3 uid="uid://cbxfe41yjfrlh"]
 
 [ext_resource type="Script" uid="uid://jtgtjw7odld8" path="res://Player/evo_1.gd" id="1_5psm4"]
 [ext_resource type="Texture2D" uid="uid://crjpji6bcfj0b" path="res://Player/2idle.png" id="2_j3qaj"]
@@ -16,11 +16,10 @@
 [ext_resource type="Texture2D" uid="uid://cnmjjufl1wf5i" path="res://Interface/Tir_enfonce.png" id="16_efgfv"]
 [ext_resource type="Texture2D" uid="uid://buis4d4klok3u" path="res://Interface/bas.png" id="17_ms575"]
 [ext_resource type="Texture2D" uid="uid://dp88mftco8upj" path="res://Interface/bas_enfonce.png" id="18_kse80"]
-[ext_resource type="Script" uid="uid://dlqm6ytxqsbjj" path="res://Player/camera_2d.gd" id="18_vbwkl"]
 [ext_resource type="PackedScene" uid="uid://healthbar" path="res://Player/HealthBar/HealthBar.tscn" id="19_rbgwy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j3qaj"]
-size = Vector2(21.9941, 27.1739)
+size = Vector2(610, 648.937)
 
 [sub_resource type="SpriteFrames" id="2"]
 animations = [{
@@ -62,30 +61,32 @@ animations = [{
 
 [node name="player" type="CharacterBody2D" groups=["Player"]]
 z_index = 1
-position = Vector2(304, 122)
-collision_layer = 0
+position = Vector2(703, 539)
 collision_mask = 334
 script = ExtResource("1_5psm4")
+speed = 600
+jump_force = -600
+max_pv = 1500
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(153.907, 64)
-scale = Vector2(3.91858, 3.68)
+position = Vector2(149.5, 69.5)
+scale = Vector2(0.1, 0.094)
 shape = SubResource("RectangleShape2D_j3qaj")
 
 [node name="anim" type="AnimatedSprite2D" parent="."]
 position = Vector2(145, 69.7545)
-scale = Vector2(0.15, 0.135)
+scale = Vector2(0.1, 0.094)
 sprite_frames = SubResource("2")
 animation = &"walk"
 frame = 1
 frame_progress = 0.451446
 
 [node name="HealthBar" parent="." instance=ExtResource("19_rbgwy")]
-position = Vector2(115, -11)
-scale = Vector2(0.647, 0.59)
+position = Vector2(120, 22)
+scale = Vector2(0.1, 0.094)
 
 [node name="TurnAxis" type="Marker2D" parent="."]
-position = Vector2(140, 65)
+position = Vector2(108, 35.9077)
 rotation = 0.785398
 
 [node name="CastPoint" type="Marker2D" parent="TurnAxis"]
@@ -130,15 +131,13 @@ texture_normal = ExtResource("17_ms575")
 texture_pressed = ExtResource("18_kse80")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(159, 59)
-scale = Vector2(0.974509, 0.984421)
-zoom = Vector2(0.5, 0.5)
-limit_left = -300
+position = Vector2(151, 61)
+zoom = Vector2(1.2, 1.2)
+limit_left = 0
 limit_top = 0
-limit_right = 8000
-limit_bottom = 2700
-limit_smoothed = true
-script = ExtResource("18_vbwkl")
+limit_right = 6500
+limit_bottom = 1500
+position_smoothing_enabled = true
 
 [connection signal="pressed" from="CanvasLayer/Gamepad/Left" to="." method="_on_left_pressed"]
 [connection signal="released" from="CanvasLayer/Gamepad/Left" to="." method="_on_left_released"]
@@ -146,8 +145,8 @@ script = ExtResource("18_vbwkl")
 [connection signal="released" from="CanvasLayer/Gamepad/Right" to="." method="_on_right_released"]
 [connection signal="pressed" from="CanvasLayer/Gamepad/Jump" to="." method="_on_jump_pressed"]
 [connection signal="released" from="CanvasLayer/Gamepad/Jump" to="." method="_on_jump_released"]
-[connection signal="pressed" from="CanvasLayer/Gamepad/Shoot" to="." method="_on_tir_pressed"]
 [connection signal="pressed" from="CanvasLayer/Gamepad/Shoot" to="." method="_on_shoot_pressed"]
+[connection signal="pressed" from="CanvasLayer/Gamepad/Shoot" to="." method="_on_tir_pressed"]
 [connection signal="released" from="CanvasLayer/Gamepad/Shoot" to="." method="_on_shoot_released"]
 [connection signal="pressed" from="CanvasLayer/Gamepad/down" to="." method="_on_down_pressed"]
 [connection signal="released" from="CanvasLayer/Gamepad/down" to="." method="_on_down_released"]

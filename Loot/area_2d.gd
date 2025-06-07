@@ -1,19 +1,12 @@
-extends Node2D
+extends Area2D
 
-@export var flaque_texture: Texture2D
+@export var banana_value: int = 1
+@export var activate_shooting: bool = false
 
-func _ready() -> void:
-	# Référence au corps physique de la bave
-	var b2b := $RigidBody2D as RigidBody2D
+func _ready():
+	connect("body_entered", Callable(self, "_on_body_entered"))
 
-	# Lance l’animation d’écrasement (spawn aplati)
-	b2b.get_node("AnimationPlayer").play("splat_flatten")
-
-	# Attendre la fin de l’animation
-	await b2b.get_node("AnimationPlayer").animation_finished
-
-	# Bascule en mode statique pour figer la bave
-	b2b.mode = RigidBody2D.MODE_STATIC
-
-	# Change la texture (vers version aplatie brillante)
-	b2b.get_node("Sprite2D").texture = flaque_texture
+func _on_body_entered(body):
+	if body.is_in_group("Player") and body.has_method("collect_banana"):
+		body.collect_banana(5, true)  # +5 bananes et active le tir
+		queue_free()

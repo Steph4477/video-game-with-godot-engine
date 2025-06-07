@@ -1,6 +1,5 @@
-[gd_scene load_steps=4 format=4 uid="uid://chd4s1iv4x63r"]
+[gd_scene load_steps=3 format=4 uid="uid://chd4s1iv4x63r"]
 
-[ext_resource type="Texture2D" path="res://lvl1/Decors/platform.png" id="1_xp1kc"]
 [ext_resource type="TileSet" uid="uid://bebiblu7xcc5j" path="res://lvl1/Decors/platform.tres" id="6_pyk3s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dvf4m"]
@@ -10,7 +9,6 @@
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(2102, 621)
-texture = ExtResource("1_xp1kc")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 position = Vector2(1230, 8)

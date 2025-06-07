@@ -1,33 +1,64 @@
-[gd_scene load_steps=3 format=3 uid="uid://cn0x2ue3ec5ba"]
+[gd_scene load_steps=12 format=3 uid="uid://cn0x2ue3ec5ba"]
 
-[ext_resource type="Texture2D" uid="uid://r4tm6siy4qma" path="res://Interface/gauche.png" id="1_1uf33"]
-[ext_resource type="Texture2D" uid="uid://b6ct81pls4cp0" path="res://Interface/gauche_enfonce.png" id="2_28tah"]
+[ext_resource type="Texture2D" uid="uid://r4tm6siy4qma" path="res://Interface/gauche.png" id="1_1oqh2"]
+[ext_resource type="Texture2D" uid="uid://b6ct81pls4cp0" path="res://Interface/gauche_enfonce.png" id="2_6yvg8"]
+[ext_resource type="Texture2D" uid="uid://o400dwetmtll" path="res://Interface/droite.png" id="3_6yv8p"]
+[ext_resource type="Texture2D" uid="uid://dywakmxincaqc" path="res://Interface/droite_enfonce.png" id="4_voibu"]
+[ext_resource type="Texture2D" uid="uid://p7k7s0begd7n" path="res://Interface/haut.png" id="5_5kbrw"]
+[ext_resource type="Texture2D" uid="uid://dp88mftco8upj" path="res://Interface/bas_enfonce.png" id="6_0b1lv"]
+[ext_resource type="Texture2D" uid="uid://76cu1cx05mjq" path="res://Interface/haut_enfonce.png" id="6_6yvg8"]
+[ext_resource type="Texture2D" uid="uid://c8lulawk433bo" path="res://Interface/Tir.png" id="7_eumbl"]
+[ext_resource type="Texture2D" uid="uid://cnmjjufl1wf5i" path="res://Interface/Tir_enfonce.png" id="8_rgqxt"]
+[ext_resource type="Texture2D" uid="uid://buis4d4klok3u" path="res://Interface/bas.png" id="9_b0qj5"]
+[ext_resource type="Texture2D" uid="uid://c00ebu1fronfb" path="res://Tir/banane.png" id="10_870gb"]
 
 [node name="Hud" type="CanvasLayer"]
 
 [node name="Gamepad" type="Node2D" parent="."]
 
 [node name="Left" type="TouchScreenButton" parent="Gamepad"]
-position = Vector2(1408, 786)
-scale = Vector2(1.67012, 1.66667)
-texture_normal = ExtResource("1_1uf33")
-texture_pressed = ExtResource("2_28tah")
+position = Vector2(1655, 895)
+scale = Vector2(1, 0.998)
+texture_normal = ExtResource("1_1oqh2")
+texture_pressed = ExtResource("2_6yvg8")
 action = "ui_left"
 
 [node name="Right" type="TouchScreenButton" parent="Gamepad"]
-position = Vector2(259, 1644)
-scale = Vector2(1.71111, 1.71111)
+position = Vector2(1785, 894)
+scale = Vector2(1, 0.998)
+texture_normal = ExtResource("3_6yv8p")
+texture_pressed = ExtResource("4_voibu")
 action = "ui_right"
 
 [node name="Jump" type="TouchScreenButton" parent="Gamepad"]
-position = Vector2(123, 1530)
-scale = Vector2(1.84444, 1.68889)
+position = Vector2(1720, 826)
+scale = Vector2(1, 0.998)
+texture_normal = ExtResource("5_5kbrw")
+texture_pressed = ExtResource("6_6yvg8")
 action = "ui_jump"
 
 [node name="Tir" type="TouchScreenButton" parent="Gamepad"]
-position = Vector2(823, 1595)
-scale = Vector2(2.19149, 2.19149)
+position = Vector2(60, 935)
+scale = Vector2(1, 0.998)
+texture_normal = ExtResource("7_eumbl")
+texture_pressed = ExtResource("8_rgqxt")
 
 [node name="down" type="TouchScreenButton" parent="Gamepad"]
-position = Vector2(132, 1765)
-scale = Vector2(1.81111, 1.61111)
+position = Vector2(1721, 961)
+scale = Vector2(1, 0.998)
+texture_normal = ExtResource("9_b0qj5")
+texture_pressed = ExtResource("6_0b1lv")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_left = 61.0
+offset_top = 65.0
+offset_right = 131.0
+offset_bottom = 120.0
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("10_870gb")
+
+[node name="BananeCountLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "0"

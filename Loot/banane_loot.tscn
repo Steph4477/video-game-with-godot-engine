@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bufpfyqhh1s65"]
+
+[ext_resource type="Script" uid="uid://c0yknsoogkdsy" path="res://Loot/area_2d.gd" id="1_xwmt2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b3a4u"]
+size = Vector2(2.68996, 11.4054)
+
+[node name="BananeLoot" type="Node2D"]
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("1_xwmt2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-34, -35)
+rotation = -3.14159
+scale = Vector2(16.1713, -4.03317)
+shape = SubResource("RectangleShape2D_b3a4u")
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]

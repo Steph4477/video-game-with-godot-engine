@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://f001f0m7opwe"]
+[gd_scene load_steps=34 format=3 uid="uid://f001f0m7opwe"]
 
 [ext_resource type="PackedScene" uid="uid://cbxfe41yjfrlh" path="res://Player/evo1.tscn" id="1_t3xnj"]
 [ext_resource type="PackedScene" uid="uid://ct7cfs6fktu4n" path="res://lvl1/Decors/tileForet.tscn" id="2_nklpm"]
@@ -12,6 +12,9 @@
 [ext_resource type="PackedScene" uid="uid://dramn3tiqxtnt" path="res://Enemies/scormard.tscn" id="8_gth1v"]
 [ext_resource type="PackedScene" uid="uid://dujtfl8q5or8" path="res://Loot/abdo.tscn" id="9_yj1qu"]
 [ext_resource type="PackedScene" uid="uid://tagnybpxlmi" path="res://lvl1/Decors/decor.tscn" id="10_nklpm"]
+[ext_resource type="PackedScene" uid="uid://dg6mgnhckbjhx" path="res://ItemsDecors/Bananier/bananier.tscn" id="13_ofnsq"]
+[ext_resource type="PackedScene" uid="uid://bufpfyqhh1s65" path="res://Loot/banane_loot.tscn" id="14_e63vn"]
+[ext_resource type="PackedScene" uid="uid://cn0x2ue3ec5ba" path="res://Interface/Hud.tscn" id="15_vc1ff"]
 
 [sub_resource type="SpriteFrames" id="1"]
 animations = [{
@@ -89,13 +92,14 @@ size = Vector2(5.00002, 20)
 [node name="Node2D" type="Node2D"]
 
 [node name="ParalaxeCiel" parent="." instance=ExtResource("10_nklpm")]
-position = Vector2(550, -8)
+position = Vector2(628, 97)
 scale = Vector2(3.28, 1)
 
 [node name="Foret" parent="." instance=ExtResource("2_nklpm")]
 
 [node name="player" parent="." instance=ExtResource("1_t3xnj")]
-position = Vector2(146, 1289)
+position = Vector2(431, 1375)
+scale = Vector2(1.00423, 1)
 speed = 400
 max_pv = 2000
 
@@ -182,16 +186,6 @@ rotation = -3.14159
 scale = Vector2(144.607, 694.703)
 shape = SubResource("RectangleShape2D_t3xnj")
 
-[node name="CollisionShape2D27" type="CollisionShape2D" parent="Platforms"]
-position = Vector2(91068.4, 12209.9)
-scale = Vector2(222.011, 12.5199)
-shape = SubResource("RectangleShape2D_t3xnj")
-
-[node name="CollisionShape2D29" type="CollisionShape2D" parent="Platforms"]
-position = Vector2(89069.2, 15619.5)
-scale = Vector2(222.011, 12.5199)
-shape = SubResource("RectangleShape2D_t3xnj")
-
 [node name="CollisionShape2D30" type="CollisionShape2D" parent="Platforms"]
 position = Vector2(27125.4, 16789.2)
 scale = Vector2(222.011, 12.5199)
@@ -201,11 +195,6 @@ shape = SubResource("RectangleShape2D_cvxqb")
 position = Vector2(16598.1, 19694.7)
 scale = Vector2(222.011, 12.5199)
 shape = SubResource("RectangleShape2D_26k7p")
-
-[node name="CollisionShape2D25" type="CollisionShape2D" parent="Platforms"]
-position = Vector2(86501.9, 10256.6)
-scale = Vector2(-261.449, 7.25639)
-shape = SubResource("RectangleShape2D_t3xnj")
 
 [node name="CollisionShape2D23" type="CollisionShape2D" parent="Platforms"]
 position = Vector2(20086.6, 21444.6)
@@ -237,3 +226,11 @@ position = Vector2(5657, 1249)
 
 [node name="abdo" parent="." instance=ExtResource("9_yj1qu")]
 position = Vector2(2830, 781)
+
+[node name="Bananier" parent="." instance=ExtResource("13_ofnsq")]
+position = Vector2(761, 1290)
+
+[node name="BananeLoot" parent="." instance=ExtResource("14_e63vn")]
+position = Vector2(823, 1278)
+
+[node name="Hud" parent="." instance=ExtResource("15_vc1ff")]

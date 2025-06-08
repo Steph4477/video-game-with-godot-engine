@@ -1,6 +1,6 @@
 # 🏝️ *Island Evolution – Rise of the Jungle Hero*
 
-> A 2D platform-adventure game made with **Godot 4**, where a mischievous monkey evolves through magical loot and battles corrupted creatures in a vibrant, cartoon world!
+A 2D adventure platformer made with Godot 4, where a monkey evolves by collecting armor, weapons, powers... Through a diverse world filled with corrupted creatures in a universe with a realistic cartoon style
 
 ---
 

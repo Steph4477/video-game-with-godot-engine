@@ -1,42 +1,18 @@
-[gd_scene load_steps=34 format=3 uid="uid://f001f0m7opwe"]
+[gd_scene load_steps=31 format=3 uid="uid://f001f0m7opwe"]
 
 [ext_resource type="PackedScene" uid="uid://cbxfe41yjfrlh" path="res://Player/evo1.tscn" id="1_t3xnj"]
 [ext_resource type="PackedScene" uid="uid://ct7cfs6fktu4n" path="res://lvl1/Decors/tileForet.tscn" id="2_nklpm"]
 [ext_resource type="PackedScene" uid="uid://chd4s1iv4x63r" path="res://lvl1/Decors/platforms.tscn" id="3_dvpsw"]
 [ext_resource type="PackedScene" uid="uid://dfnra1ay6d3i" path="res://Enemies/champi.tscn" id="4_6nqw4"]
-[ext_resource type="Texture2D" uid="uid://8feychv0hp80" path="res://ItemsDecors/piques1.png" id="4_gth1v"]
-[ext_resource type="PackedScene" uid="uid://bi56b8q1a6s16" path="res://ItemsDecors/pique.tscn" id="5_am3co"]
-[ext_resource type="PackedScene" uid="uid://xq370kjllpc3" path="res://scene/pique2.tscn" id="5_d87ur"]
-[ext_resource type="Texture2D" uid="uid://d0lp8pwwtjmw8" path="res://ItemsDecors/piques1.1.png" id="5_yj1qu"]
-[ext_resource type="Texture2D" uid="uid://bs7hsk1kl1l68" path="res://ItemsDecors/piques1.2.png" id="6_nklpm"]
+[ext_resource type="PackedScene" uid="uid://bi56b8q1a6s16" path="res://ItemsDecors/Pique/pique.tscn" id="5_am3co"]
 [ext_resource type="PackedScene" uid="uid://dramn3tiqxtnt" path="res://Enemies/scormard.tscn" id="8_gth1v"]
 [ext_resource type="PackedScene" uid="uid://dujtfl8q5or8" path="res://Loot/abdo.tscn" id="9_yj1qu"]
 [ext_resource type="PackedScene" uid="uid://tagnybpxlmi" path="res://lvl1/Decors/decor.tscn" id="10_nklpm"]
+[ext_resource type="PackedScene" uid="uid://cev5rxsibfue3" path="res://ItemsDecors/Cocotier/cocotier.tscn" id="13_f0kof"]
 [ext_resource type="PackedScene" uid="uid://dg6mgnhckbjhx" path="res://ItemsDecors/Bananier/bananier.tscn" id="13_ofnsq"]
+[ext_resource type="PackedScene" uid="uid://skt7pf4qgqru" path="res://Loot/Cocotier_loot.tscn" id="14_211dj"]
 [ext_resource type="PackedScene" uid="uid://bufpfyqhh1s65" path="res://Loot/banane_loot.tscn" id="14_e63vn"]
 [ext_resource type="PackedScene" uid="uid://cn0x2ue3ec5ba" path="res://Interface/Hud.tscn" id="15_vc1ff"]
-
-[sub_resource type="SpriteFrames" id="1"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("4_gth1v")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 1.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("5_yj1qu")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_nklpm")
-}],
-"loop": true,
-"name": &"pique",
-"speed": 5.0
-}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wajbs"]
 size = Vector2(2.23209, 104.915)
@@ -92,31 +68,30 @@ size = Vector2(5.00002, 20)
 [node name="Node2D" type="Node2D"]
 
 [node name="ParalaxeCiel" parent="." instance=ExtResource("10_nklpm")]
-position = Vector2(628, 97)
+position = Vector2(330, -329)
 scale = Vector2(3.28, 1)
 
 [node name="Foret" parent="." instance=ExtResource("2_nklpm")]
 
 [node name="player" parent="." instance=ExtResource("1_t3xnj")]
-position = Vector2(431, 1375)
+position = Vector2(2601, 685)
 scale = Vector2(1.00423, 1)
 speed = 400
 max_pv = 2000
 
-[node name="platforms" parent="." instance=ExtResource("3_dvpsw")]
-position = Vector2(813, 269)
+[node name="pique" parent="." instance=ExtResource("5_am3co")]
+position = Vector2(2259, 1365)
+rotation = -3.14159
+scale = Vector2(0.740046, -0.473848)
+frame_progress = 0.976109
 
 [node name="pique2" parent="." instance=ExtResource("5_am3co")]
-position = Vector2(2646, 1485)
+position = Vector2(2642, 1455)
 rotation = -3.14159
-scale = Vector2(0.25289, -0.13086)
+scale = Vector2(0.25289, -0.145842)
 
-[node name="pique" parent="." instance=ExtResource("5_d87ur")]
-position = Vector2(2266, 1464.8)
-rotation = 3.14159
-scale = Vector2(0.708676, -0.30114)
-sprite_frames = SubResource("1")
-animation = &"idle"
+[node name="platforms" parent="." instance=ExtResource("3_dvpsw")]
+position = Vector2(813, 269)
 
 [node name="Platforms" type="StaticBody2D" parent="."]
 position = Vector2(730.3, -1817)
@@ -218,19 +193,25 @@ scale = Vector2(286.449, -13.7806)
 shape = SubResource("RectangleShape2D_uhs03")
 
 [node name="champi" parent="." instance=ExtResource("4_6nqw4")]
-position = Vector2(4729, 1251)
+position = Vector2(4735, 1305)
 scale = Vector2(-1.47749, 1.31411)
 
 [node name="scormard" parent="." instance=ExtResource("8_gth1v")]
-position = Vector2(5657, 1249)
+position = Vector2(3255, 1371)
 
 [node name="abdo" parent="." instance=ExtResource("9_yj1qu")]
-position = Vector2(2830, 781)
+position = Vector2(2838, 784)
+
+[node name="Cocotier" parent="." instance=ExtResource("13_f0kof")]
+position = Vector2(1171, 1254)
+
+[node name="CocoLoot" parent="." instance=ExtResource("14_211dj")]
+position = Vector2(1231, 1029)
 
 [node name="Bananier" parent="." instance=ExtResource("13_ofnsq")]
-position = Vector2(761, 1290)
+position = Vector2(758, 1250)
 
 [node name="BananeLoot" parent="." instance=ExtResource("14_e63vn")]
-position = Vector2(823, 1278)
+position = Vector2(826, 1203)
 
 [node name="Hud" parent="." instance=ExtResource("15_vc1ff")]

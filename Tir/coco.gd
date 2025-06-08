@@ -21,9 +21,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Enemies"):
 		if body.has_method("on_hit"):
 			body.on_hit(damage)
-	if body.has_method("freeze"): #stoppage
-			body.freeze()
-
+		if body.has_method("stone"): #assomement
+			body.stone()
 	else:
 		print("Cible NON dans le groupe Enemies")
 

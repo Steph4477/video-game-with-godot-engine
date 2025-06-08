@@ -1,8 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://cbxfe41yjfrlh"]
+[gd_scene load_steps=13 format=3 uid="uid://cbxfe41yjfrlh"]
 
 [ext_resource type="Script" uid="uid://jtgtjw7odld8" path="res://Player/evo_1.gd" id="1_5psm4"]
 [ext_resource type="Texture2D" uid="uid://crjpji6bcfj0b" path="res://Player/2idle.png" id="2_j3qaj"]
 [ext_resource type="Texture2D" uid="uid://ilsr30swu5w6" path="res://Player/climb.png" id="2_vbwkl"]
+[ext_resource type="Texture2D" uid="uid://cjmv70v7j2rfl" path="res://Player/escalade.png" id="3_tj6lq"]
+[ext_resource type="Texture2D" uid="uid://djc1rgquffptw" path="res://Player/escalade2.png" id="4_jjtta"]
 [ext_resource type="Texture2D" uid="uid://vdd8mvvr4fa3" path="res://Player/2jump4.png" id="4_no3im"]
 [ext_resource type="Texture2D" uid="uid://dnlrs7n5ds4di" path="res://Player/2jump1.png" id="5_1casu"]
 [ext_resource type="Texture2D" uid="uid://bnmgkg5lgqb4r" path="res://Player/2walk1.png" id="6_tj6lq"]
@@ -20,6 +22,17 @@ animations = [{
 }],
 "loop": true,
 "name": &"climb",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_tj6lq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_jjtta")
+}],
+"loop": true,
+"name": &"climb_coco",
 "speed": 5.0
 }, {
 "frames": [{
@@ -73,9 +86,9 @@ shape = SubResource("RectangleShape2D_j3qaj")
 
 [node name="anim" type="AnimatedSprite2D" parent="."]
 position = Vector2(149, 71)
-scale = Vector2(0.1, 0.094)
+scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("2")
-animation = &"idle"
+animation = &"climb_coco"
 
 [node name="HealthBar" parent="." instance=ExtResource("19_rbgwy")]
 position = Vector2(120, 22)

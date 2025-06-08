@@ -1,11 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://dramn3tiqxtnt"]
+[gd_scene load_steps=12 format=3 uid="uid://dramn3tiqxtnt"]
 
 [ext_resource type="Script" uid="uid://cnquios5860dx" path="res://scene/enemy2.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://nhxeh8ju5qmp" path="res://Enemies/enemyataque.png" id="2_4q0aj"]
 [ext_resource type="Texture2D" uid="uid://bflfbisuy4koo" path="res://Enemies/enemyataque2.png" id="2_j2io8"]
 [ext_resource type="Texture2D" uid="uid://brilk6wygddnq" path="res://Enemies/enemyface.png" id="3_j2io8"]
 [ext_resource type="Texture2D" uid="uid://c0cginoqwjshm" path="res://Enemies/enemyprofil.png" id="4_n3kbn"]
+[ext_resource type="Texture2D" uid="uid://cx744nsqxs5qr" path="res://Enemies/Scormard/slide01.png" id="5_y22qs"]
+[ext_resource type="Texture2D" uid="uid://q53xb71wcsax" path="res://Enemies/Scormard/slide1.png" id="6_lxam6"]
 [ext_resource type="PackedScene" uid="uid://nx7n3qyhsmbr" path="res://Enemies/HealthBar.tscn" id="6_n3kbn"]
+[ext_resource type="Texture2D" uid="uid://c6c50erfwud1f" path="res://Enemies/Scormard/slide2.png" id="7_0lti3"]
 
 [sub_resource type="SpriteFrames" id="1"]
 animations = [{
@@ -33,6 +36,43 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("5_y22qs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_y22qs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_lxam6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_lxam6")
+}],
+"loop": false,
+"name": &"slide",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_0lti3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_0lti3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_0lti3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_0lti3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_0lti3")
+}],
+"loop": true,
+"name": &"stone",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("4_n3kbn")
 }],
 "loop": true,
@@ -53,7 +93,7 @@ script = ExtResource("1")
 position = Vector2(5.68201, -1.91101)
 scale = Vector2(0.3, 0.318)
 sprite_frames = SubResource("1")
-animation = &"attaque"
+animation = &"stone"
 
 [node name="Area2D" type="Area2D" parent="." groups=["Enemies"]]
 position = Vector2(30.682, 39.089)

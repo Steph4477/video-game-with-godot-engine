@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cn0x2ue3ec5ba"]
+[gd_scene load_steps=13 format=3 uid="uid://cn0x2ue3ec5ba"]
 
 [ext_resource type="Texture2D" uid="uid://r4tm6siy4qma" path="res://Interface/gauche.png" id="1_1oqh2"]
 [ext_resource type="Texture2D" uid="uid://b6ct81pls4cp0" path="res://Interface/gauche_enfonce.png" id="2_6yvg8"]
@@ -10,7 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://c8lulawk433bo" path="res://Interface/Tir.png" id="7_eumbl"]
 [ext_resource type="Texture2D" uid="uid://cnmjjufl1wf5i" path="res://Interface/Tir_enfonce.png" id="8_rgqxt"]
 [ext_resource type="Texture2D" uid="uid://buis4d4klok3u" path="res://Interface/bas.png" id="9_b0qj5"]
-[ext_resource type="Texture2D" uid="uid://c00ebu1fronfb" path="res://Tir/banane.png" id="10_870gb"]
+[ext_resource type="Texture2D" uid="uid://d3n7vq0uhj065" path="res://Tir/banane.png" id="11_6yvg8"]
+[ext_resource type="Texture2D" uid="uid://d4e2mf80r1yjp" path="res://Tir/coco.png" id="12_6yv8p"]
 
 [node name="Hud" type="CanvasLayer"]
 
@@ -49,16 +50,30 @@ scale = Vector2(1, 0.998)
 texture_normal = ExtResource("9_b0qj5")
 texture_pressed = ExtResource("6_0b1lv")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-offset_left = 61.0
+[node name="HBoxContainerBanane" type="HBoxContainer" parent="."]
+offset_left = 77.0
 offset_top = 65.0
-offset_right = 131.0
-offset_bottom = 120.0
+offset_right = 171.0
+offset_bottom = 145.0
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="HBoxContainerBanane"]
 layout_mode = 2
-texture = ExtResource("10_870gb")
+texture = ExtResource("11_6yvg8")
 
-[node name="BananeCountLabel" type="Label" parent="HBoxContainer"]
+[node name="BananeCountLabel" type="Label" parent="HBoxContainerBanane"]
+layout_mode = 2
+text = "0"
+
+[node name="HBoxContainerCoco" type="HBoxContainer" parent="."]
+offset_left = 79.0
+offset_top = 157.0
+offset_right = 173.0
+offset_bottom = 237.0
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainerCoco"]
+layout_mode = 2
+texture = ExtResource("12_6yv8p")
+
+[node name="CocoCountLabel" type="Label" parent="HBoxContainerCoco"]
 layout_mode = 2
 text = "0"

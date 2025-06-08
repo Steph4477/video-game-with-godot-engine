@@ -10,12 +10,12 @@ A 2D adventure platformer made with Godot 4, where a monkey evolves by collectin
 
 Lost in the heart of a mysterious archipelago, **Moko**, a cheeky young monkey, awakens on a volcanic island cursed by an ancient power. The ecosystem is in turmoil — mutated beasts and massive flora roam the land, all under the influence of the dark and twisted **Obsidian Totem**.
 
-### 🧪 The Twist
+### 🧪 Game mechanics
 
 Moko possesses a rare gift: **Totemic Evolution**.
-Every loot he collects — 🍌 *tribal fruits*, 🎭 *ancestral masks*, or 💠 *totemic essences* — grants him **new powers** and **transforms his appearance**.
+Every piece of loot he collects — 🍌 *tribal fruits*, 🎭 *ancestral masks*,💠 *totemic essences* or armor — grants him **new powers** and **transforms his appearance**.
 
-But beware — every power has a price. Some loot may affect his behavior or abilities in unexpected ways...
+But beware — eevery power comes at a cost. Some loot may affect his behavior or abilities in unexpected ways…
 
 ### 🧭 The Quest
 

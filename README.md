@@ -62,7 +62,7 @@ Help Moko:
 ### Clone and Run
 
 ```bash
-git clone https://github.com/<YOUR_USERNAME>/video-game-with-godot-engine.git
+git clone https://github.com/Steph4477/video-game-with-godot-engine.git
 cd video-game-with-godot-engine
 ```
 

@@ -1,33 +1,36 @@
 extends CharacterBody2D
 
-@export var speed = 400
-@export var jump_force = -700
+@export var speed = 500
+@export var jump_force = -1200
 @export var gravity = 1200
-@export var max_pv = 2000
+@export var pv = 2000
 @onready var health_bar = $HealthBar/TextureProgressBar
 @onready var banane_label = get_node("../Hud/HBoxContainerBanane/BananeCountLabel")
 @onready var coco_label = get_node("../Hud/HBoxContainerCoco/CocoCountLabel")
+
+# Initialisation des variables du GameState
+var game_state
+var can_fire_banane  # Tir désactivé au début
+var banane_count 
+var can_fire_coco # Tir désactivé au début
+var coco_count
+# Double Saut
 var jump_count = 0
-var pv = max_pv
-# Contrôle via UI
-var moving_left = false
-var moving_right = false
-var jumping = false
-# Option tir
-var banane_count = 0
-var coco_count = 0
+# tir
 var spellBanane = preload ("res://Tir/banane.tscn")
 var spellCoco = preload ("res://Tir/coco.tscn")
-var can_fire_banane = false  # Tir désactivé au début
-var can_fire_coco = false  # Tir désactivé au début
 var rate_of_fire = 0.4
-var moving_down = false
-var coin = 0
+# escalade
 var is_climbing = false
 var is_climbingCoco = false
 var climb_speed = 100.0
 var can_climb = false
 var can_climbCoco = false
+# Contrôle via UI
+var moving_left = false
+var moving_right = false
+var jumping = false
+var moving_down = false
 
 func set_can_climb(value: bool) -> void:
 	can_climb = value
@@ -41,6 +44,18 @@ func set_can_climbCoco(value: bool) -> void:
 
 func _ready():
 	$Camera2D.make_current()
+	await get_tree().process_frame  # attend une frame pour que la scene courante soit prête
+	game_state = get_tree().current_scene.get_node("../GameState")
+	
+	if game_state:
+		print("✅ GameState trouvé :", game_state)
+		# Initialisation depuis GameState
+		banane_count = game_state.banane_count
+		coco_count = game_state.coco_count
+		can_fire_banane = game_state.can_fire_banane
+		can_fire_coco = game_state.can_fire_coco
+	else:
+		print("❌ GameState introuvable")
 
 func _physics_process(delta: float) -> void:
 	# Gravité
@@ -53,7 +68,7 @@ func _physics_process(delta: float) -> void:
 	# Direction par InputMap (clavier/manette)
 	var direction := Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 
-	# Avec boutons UI
+	## Avec boutons UI
 	if moving_left:
 		direction = -1
 	elif moving_right:
@@ -66,8 +81,7 @@ func _physics_process(delta: float) -> void:
 	elif direction < 0:
 		$anim.flip_h = true
 
-
-	# Détecter si on est en train de grimper
+	# Détecter si on est en train de grimper sur bananier
 	if can_climb and Input.is_action_pressed("ui_up"):
 		is_climbing = true
 	elif !can_climb:
@@ -80,7 +94,7 @@ func _physics_process(delta: float) -> void:
 		is_climbingCoco = false
 	
 
-	# Appliquer mouvement vertical(escalade)
+	# Appliquer mouvement vertical(escalade bananier)
 	if is_climbing:
 		# On grimpe
 		velocity.y = 0  # neutralise la gravité
@@ -97,13 +111,13 @@ func _physics_process(delta: float) -> void:
 			velocity.y = -climb_speed
 		elif Input.is_action_pressed("ui_down"):
 			velocity.y = climb_speed
-		
 	else:
 		# On ne grimpe pas → vérifier saut
-		if (Input.is_action_just_pressed("ui_up") or jumping) and jump_count < 2:
+		if Input.is_action_just_pressed("ui_up") and jump_count < 2:
+		#if (Input.is_action_just_pressed("ui_up") or jumping) and jump_count < 2: # Avec UI
 			velocity.y = jump_force
 			jump_count += 1
-			jumping = false
+			#jumping = false # Avec UI
 		else:
 			# Appliquer gravité si pas de saut
 			velocity.y += gravity * delta
@@ -143,7 +157,7 @@ func on_hit(damage: int) -> void:
 	pv -= damage
 	print("HealthBar trouvé ? ", health_bar)
 	if health_bar:
-		health_bar.max_value = max_pv
+		health_bar.max_value = pv
 		health_bar.set_value(pv)
 	print("PV restants : ", pv)
 	show_damage_popup(damage)
@@ -153,7 +167,6 @@ func show_damage_popup(amount: int) -> void:
 	add_child(popup)
 	popup.position = Vector2(0, -30)  # position flottante au-dessus du joueur
 	popup.show_damage(amount)
-
 	if pv <= 0:
 		die()
 
@@ -172,21 +185,35 @@ func update_coco_display():
 # Fonction de collecte
 func collect_banane(amount: int = 1, enable_shooting: bool = false) -> void:
 	banane_count += amount
-	update_banane_display()
-	print("🍌 Bananes collectées :", banane_count)
 	# Activation du tir
 	if enable_shooting:
 		can_fire_banane = true
 		print("✅ Tir activé !")
+	# Récuperation des données des variables de GameState
+	if game_state:
+		game_state.can_fire_banane = can_fire_banane
+		game_state.banane_count = banane_count
+		print("✅ Banane_count = :", game_state.banane_count)
+		print("✅ Can_fire_banane = :", game_state.can_fire_banane)
+	#mise a jour de l'HUD
+	update_banane_display()
+	print("🍌 Bananes collectées :", banane_count)
 
 func collect_coco(amount: int = 1, enable_shooting: bool = false) -> void:
 	coco_count += amount
-	update_coco_display()
-	print("🥥 Cocos collectées :", coco_count)
 	# Activation du tir
 	if enable_shooting:
 		can_fire_coco = true
 		print("✅ Tir activé !")
+	# Récuperation des données des variables de GameState
+	if game_state:
+		game_state.can_fire_coco = can_fire_coco
+		game_state.coco_count = coco_count
+		print("✅ Coco_count = :", game_state.coco_count)
+		print("✅ Can_fire_coco = :", game_state.can_fire_coco)
+	#mise a jour de l'HUD
+	update_coco_display()
+	print("🥥 Coco collectées :", coco_count)
 
 # Fonction de Tir
 func SkillLoop() -> void:
@@ -200,9 +227,13 @@ func SkillLoop() -> void:
 	# config touche tir de banane (ui_accept)
 	if Input.is_action_just_pressed("ui_accept") and can_fire_banane:
 		if banane_count > 0:
-			can_fire_coco = false
+			#can_fire_coco = false
 			banane_count -= 1
 			update_banane_display()
+			# ✅ Met à jour GameState après la modification
+			if game_state:
+				game_state.banane_count = banane_count
+
 			print("🍌 Tir banane ! Restantes :", banane_count)
 			# instancie la scene de munition de banane à l'endroit du joueur
 			var banane_spell = spellBanane.instantiate()
@@ -218,9 +249,13 @@ func SkillLoop() -> void:
 	# config touche tir de coco (ui_cancel)
 	elif Input.is_action_just_pressed("ui_cancel") and can_fire_coco:
 		if coco_count > 0:
-			can_fire_coco = false
+			#can_fire_coco = false
 			coco_count -= 1
 			update_coco_display()
+			# ✅ Met à jour GameState après la modification
+			if game_state:
+				game_state.coco_count = coco_count
+
 			print("🥥 Tir coco ! Restantes :", coco_count)
 			# instancie la scene de munition de coco à l'endroit du joueur
 			var coco_spell = spellCoco.instantiate()

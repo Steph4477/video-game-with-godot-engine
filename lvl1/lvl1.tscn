@@ -1,5 +1,6 @@
-[gd_scene load_steps=31 format=3 uid="uid://f001f0m7opwe"]
+[gd_scene load_steps=32 format=3 uid="uid://f001f0m7opwe"]
 
+[ext_resource type="Script" uid="uid://bkvice5tqbx5p" path="res://scripts/GameState.gd" id="1_e63vn"]
 [ext_resource type="PackedScene" uid="uid://cbxfe41yjfrlh" path="res://Player/evo1.tscn" id="1_t3xnj"]
 [ext_resource type="PackedScene" uid="uid://ct7cfs6fktu4n" path="res://lvl1/Decors/tileForet.tscn" id="2_nklpm"]
 [ext_resource type="PackedScene" uid="uid://chd4s1iv4x63r" path="res://lvl1/Decors/platforms.tscn" id="3_dvpsw"]
@@ -65,7 +66,8 @@ size = Vector2(3.43382, 201.303)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uhs03"]
 size = Vector2(5.00002, 20)
 
-[node name="Node2D" type="Node2D"]
+[node name="GameState" type="Node2D"]
+script = ExtResource("1_e63vn")
 
 [node name="ParalaxeCiel" parent="." instance=ExtResource("10_nklpm")]
 position = Vector2(330, -329)
@@ -74,10 +76,9 @@ scale = Vector2(3.28, 1)
 [node name="Foret" parent="." instance=ExtResource("2_nklpm")]
 
 [node name="player" parent="." instance=ExtResource("1_t3xnj")]
-position = Vector2(2601, 685)
+position = Vector2(499, 1384)
 scale = Vector2(1.00423, 1)
-speed = 400
-max_pv = 2000
+speed = 500
 
 [node name="pique" parent="." instance=ExtResource("5_am3co")]
 position = Vector2(2259, 1365)
@@ -200,7 +201,7 @@ scale = Vector2(-1.47749, 1.31411)
 position = Vector2(3255, 1371)
 
 [node name="abdo" parent="." instance=ExtResource("9_yj1qu")]
-position = Vector2(2838, 784)
+position = Vector2(1478, 1491)
 
 [node name="Cocotier" parent="." instance=ExtResource("13_f0kof")]
 position = Vector2(1171, 1254)

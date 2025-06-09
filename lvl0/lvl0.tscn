@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" uid="uid://blvusydsj0qy2" path="res://scene/menu.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://c0wq2d10u4c5s" path="res://Menu/Decors/FeuillePersonnage.png" id="2_yn7vu"]
-[ext_resource type="Texture2D" uid="uid://1pxd58ov5bl5" path="res://scene/enemyprofil.png" id="3"]
-[ext_resource type="Texture2D" uid="uid://npm8tt4hfufw" path="res://scene/champi.png" id="3_vo2wl"]
+[ext_resource type="Texture2D" uid="uid://bhqkhxgoboywm" path="res://Enemies/champi.png" id="3_xeqbx"]
+[ext_resource type="Texture2D" uid="uid://psgutnnpdua1" path="res://Enemies/Scormard/enemyataque.png" id="4_6m8ub"]
+[ext_resource type="Texture2D" uid="uid://cv04ehcq6nabx" path="res://Player/jump2_abdo.png" id="5_d4cyp"]
 [ext_resource type="Texture2D" uid="uid://du8hyg48pnw4q" path="res://Interface/bouton_Démarrer.png" id="6_bfdrb"]
-[ext_resource type="Texture2D" uid="uid://rgpxojet850c" path="res://scene/robot/stand up2.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://b2231psh2jrcq" path="res://Enemies/Mygale/attaque._plafond.png" id="6_dqkoy"]
 [ext_resource type="Texture2D" uid="uid://vin1w2o72qar" path="res://Interface/boutonenfoncé.png" id="7_8newj"]
-[ext_resource type="Texture2D" uid="uid://b1fd2t4wuta8e" path="res://scene/robot/robotsaut2.png" id="8"]
 [ext_resource type="AudioStream" uid="uid://bwmq5rwe88mn7" path="res://sounds/dijee.wav" id="9"]
 [ext_resource type="Texture2D" uid="uid://b62b0euunuaqy" path="res://Interface/bouton_Options.png" id="9_1iqfo"]
 [ext_resource type="Texture2D" uid="uid://d2xxiuhwknslt" path="res://Interface/boutonenfoncé_Options.png" id="10_vcqdb"]
@@ -29,24 +29,23 @@ scale = Vector2(2.14729, 2.20878)
 texture = ExtResource("2_yn7vu")
 
 [node name="Champi" type="Sprite2D" parent="Interface/Background"]
-position = Vector2(1163, 908)
+position = Vector2(1206.25, 873)
 scale = Vector2(0.278002, 0.281163)
-texture = ExtResource("3_vo2wl")
+texture = ExtResource("3_xeqbx")
 
 [node name="Enemyprofil" type="Sprite2D" parent="Interface/Background"]
-position = Vector2(1645, 465)
-texture = ExtResource("3")
-
-[node name="Robotsaut2" type="Sprite2D" parent="Interface/Background"]
-position = Vector2(889, 504)
-rotation = -0.0141671
-scale = Vector2(0.748631, 0.743939)
-texture = ExtResource("8")
+position = Vector2(1565.62, 478)
+scale = Vector2(0.699178, 0.646484)
+texture = ExtResource("4_6m8ub")
 
 [node name="StandUp2" type="Sprite2D" parent="Interface/Background"]
-position = Vector2(214.583, 781)
-scale = Vector2(1.73853, 1.66899)
-texture = ExtResource("7")
+position = Vector2(350, 733)
+scale = Vector2(0.848343, 0.673273)
+texture = ExtResource("5_d4cyp")
+
+[node name="Mygale" type="Sprite2D" parent="Interface/Background"]
+position = Vector2(904.167, 213)
+texture = ExtResource("6_dqkoy")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Interface"]
 anchors_preset = 2

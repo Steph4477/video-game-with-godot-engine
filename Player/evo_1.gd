@@ -26,7 +26,7 @@ var is_climbingCoco = false
 var climb_speed = 100.0
 var can_climb = false
 var can_climbCoco = false
-# Contrôle via UI
+# mouvement
 var moving_left = false
 var moving_right = false
 var jumping = false
@@ -64,23 +64,21 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.y = 0
 		jump_count = 0
-
-	# Direction par InputMap (clavier/manette)
+	
+	# Direction 
 	var direction := Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
-
-	## Avec boutons UI
 	if moving_left:
 		direction = -1
 	elif moving_right:
 		direction = 1
 	velocity.x = direction * speed
-
+	
 	# Flip sprite
 	if direction > 0:
 		$anim.flip_h = false
 	elif direction < 0:
 		$anim.flip_h = true
-
+	
 	# Détecter si on est en train de grimper sur bananier
 	if can_climb and Input.is_action_pressed("ui_up"):
 		is_climbing = true
@@ -93,7 +91,6 @@ func _physics_process(delta: float) -> void:
 	elif !can_climbCoco:
 		is_climbingCoco = false
 	
-
 	# Appliquer mouvement vertical(escalade bananier)
 	if is_climbing:
 		# On grimpe
@@ -102,7 +99,7 @@ func _physics_process(delta: float) -> void:
 			velocity.y = -climb_speed
 		elif Input.is_action_pressed("ui_down"):
 			velocity.y = climb_speed
-		
+	
 	# Appliquer mouvement vertical(escalade cocotier)
 	if is_climbingCoco:
 		# On grimpe
@@ -112,7 +109,7 @@ func _physics_process(delta: float) -> void:
 		elif Input.is_action_pressed("ui_down"):
 			velocity.y = climb_speed
 	else:
-		# On ne grimpe pas → vérifier saut
+		# On saute et on peut faire un double saut
 		if Input.is_action_just_pressed("ui_up") and jump_count < 2:
 		#if (Input.is_action_just_pressed("ui_up") or jumping) and jump_count < 2: # Avec UI
 			velocity.y = jump_force
@@ -121,10 +118,10 @@ func _physics_process(delta: float) -> void:
 		else:
 			# Appliquer gravité si pas de saut
 			velocity.y += gravity * delta
-
+	
 	# Appliquer mouvement
 	move_and_slide()
-
+	
 	# Animation
 	update_animation()
 	
@@ -174,6 +171,7 @@ func die() -> void:
 	print("Le joueur est mort !")
 	get_tree().reload_current_scene()
 
+# Mise à jour du HUD
 func update_banane_display():
 	if banane_label:
 		banane_label.text = "x %d" % banane_count
@@ -182,7 +180,7 @@ func update_coco_display():
 	if coco_label:
 		coco_label.text = "x %d" % coco_count
 
-# Fonction de collecte
+# loot
 func collect_banane(amount: int = 1, enable_shooting: bool = false) -> void:
 	banane_count += amount
 	# Activation du tir
@@ -215,7 +213,7 @@ func collect_coco(amount: int = 1, enable_shooting: bool = false) -> void:
 	update_coco_display()
 	print("🥥 Coco collectées :", coco_count)
 
-# Fonction de Tir
+# Tir
 func SkillLoop() -> void:
 	#direction du tir
 	var direction: int
@@ -227,10 +225,9 @@ func SkillLoop() -> void:
 	# config touche tir de banane (ui_accept)
 	if Input.is_action_just_pressed("ui_accept") and can_fire_banane:
 		if banane_count > 0:
-			#can_fire_coco = false
 			banane_count -= 1
 			update_banane_display()
-			# ✅ Met à jour GameState après la modification
+			# ✅ Met à jour GameState après le tir
 			if game_state:
 				game_state.banane_count = banane_count
 
@@ -252,11 +249,12 @@ func SkillLoop() -> void:
 			#can_fire_coco = false
 			coco_count -= 1
 			update_coco_display()
+			
 			# ✅ Met à jour GameState après la modification
 			if game_state:
 				game_state.coco_count = coco_count
-
 			print("🥥 Tir coco ! Restantes :", coco_count)
+			
 			# instancie la scene de munition de coco à l'endroit du joueur
 			var coco_spell = spellCoco.instantiate()
 			var spawn_pos = get_node("TurnAxis/CastPoint").get_global_position()

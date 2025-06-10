@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://blvusydsj0qy2" path="res://scene/menu.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://c0wq2d10u4c5s" path="res://Menu/Decors/FeuillePersonnage.png" id="2_yn7vu"]
 [ext_resource type="Texture2D" uid="uid://bhqkhxgoboywm" path="res://Enemies/champi.png" id="3_xeqbx"]
-[ext_resource type="Texture2D" uid="uid://psgutnnpdua1" path="res://Enemies/Scormard/enemyataque.png" id="4_6m8ub"]
+[ext_resource type="Texture2D" uid="uid://b36h1sf05kr75" path="res://Enemies/Scormard/enemyprofil.png" id="4_xeqbx"]
 [ext_resource type="Texture2D" uid="uid://cv04ehcq6nabx" path="res://Player/jump2_abdo.png" id="5_d4cyp"]
 [ext_resource type="Texture2D" uid="uid://du8hyg48pnw4q" path="res://Interface/bouton_Démarrer.png" id="6_bfdrb"]
 [ext_resource type="Texture2D" uid="uid://b2231psh2jrcq" path="res://Enemies/Mygale/attaque._plafond.png" id="6_dqkoy"]
@@ -34,9 +34,9 @@ scale = Vector2(0.278002, 0.281163)
 texture = ExtResource("3_xeqbx")
 
 [node name="Enemyprofil" type="Sprite2D" parent="Interface/Background"]
-position = Vector2(1565.62, 478)
+position = Vector2(1609.38, 458)
 scale = Vector2(0.699178, 0.646484)
-texture = ExtResource("4_6m8ub")
+texture = ExtResource("4_xeqbx")
 
 [node name="StandUp2" type="Sprite2D" parent="Interface/Background"]
 position = Vector2(350, 733)

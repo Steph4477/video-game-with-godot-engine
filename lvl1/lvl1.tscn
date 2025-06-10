@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://f001f0m7opwe"]
+[gd_scene load_steps=33 format=3 uid="uid://f001f0m7opwe"]
 
 [ext_resource type="Script" uid="uid://bkvice5tqbx5p" path="res://scripts/GameState.gd" id="1_e63vn"]
 [ext_resource type="PackedScene" uid="uid://cbxfe41yjfrlh" path="res://Player/evo1.tscn" id="1_t3xnj"]
@@ -6,13 +6,14 @@
 [ext_resource type="PackedScene" uid="uid://chd4s1iv4x63r" path="res://lvl1/Decors/platforms.tscn" id="3_dvpsw"]
 [ext_resource type="PackedScene" uid="uid://dfnra1ay6d3i" path="res://Enemies/champi.tscn" id="4_6nqw4"]
 [ext_resource type="PackedScene" uid="uid://bi56b8q1a6s16" path="res://ItemsDecors/Pique/pique.tscn" id="5_am3co"]
-[ext_resource type="PackedScene" uid="uid://dramn3tiqxtnt" path="res://Enemies/scormard.tscn" id="8_gth1v"]
 [ext_resource type="PackedScene" uid="uid://dujtfl8q5or8" path="res://Loot/abdo.tscn" id="9_yj1qu"]
 [ext_resource type="PackedScene" uid="uid://tagnybpxlmi" path="res://lvl1/Decors/decor.tscn" id="10_nklpm"]
 [ext_resource type="PackedScene" uid="uid://cev5rxsibfue3" path="res://ItemsDecors/Cocotier/cocotier.tscn" id="13_f0kof"]
 [ext_resource type="PackedScene" uid="uid://dg6mgnhckbjhx" path="res://ItemsDecors/Bananier/bananier.tscn" id="13_ofnsq"]
 [ext_resource type="PackedScene" uid="uid://skt7pf4qgqru" path="res://Loot/Cocotier_loot.tscn" id="14_211dj"]
 [ext_resource type="PackedScene" uid="uid://bufpfyqhh1s65" path="res://Loot/banane_loot.tscn" id="14_e63vn"]
+[ext_resource type="PackedScene" uid="uid://lt163krgrux1" path="res://Enemies/Scormard/scormard.tscn" id="15_f0kof"]
+[ext_resource type="PackedScene" uid="uid://cohmext14ho56" path="res://Enemies/Mygale/mygale.tscn" id="15_kgp0u"]
 [ext_resource type="PackedScene" uid="uid://cn0x2ue3ec5ba" path="res://Interface/Hud.tscn" id="15_vc1ff"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wajbs"]
@@ -76,7 +77,7 @@ scale = Vector2(3.28, 1)
 [node name="Foret" parent="." instance=ExtResource("2_nklpm")]
 
 [node name="player" parent="." instance=ExtResource("1_t3xnj")]
-position = Vector2(499, 1384)
+position = Vector2(-65, 1375)
 scale = Vector2(1.00423, 1)
 speed = 500
 
@@ -197,9 +198,6 @@ shape = SubResource("RectangleShape2D_uhs03")
 position = Vector2(4735, 1305)
 scale = Vector2(-1.47749, 1.31411)
 
-[node name="scormard" parent="." instance=ExtResource("8_gth1v")]
-position = Vector2(3255, 1371)
-
 [node name="abdo" parent="." instance=ExtResource("9_yj1qu")]
 position = Vector2(1478, 1491)
 
@@ -216,3 +214,9 @@ position = Vector2(758, 1250)
 position = Vector2(826, 1203)
 
 [node name="Hud" parent="." instance=ExtResource("15_vc1ff")]
+
+[node name="mygale" parent="." instance=ExtResource("15_kgp0u")]
+position = Vector2(862, 1428)
+
+[node name="scormard" parent="." instance=ExtResource("15_f0kof")]
+position = Vector2(3110, 1353)

@@ -213,6 +213,12 @@ func collect_coco(amount: int = 1, enable_shooting: bool = false) -> void:
 	update_coco_display()
 	print("🥥 Coco collectées :", coco_count)
 
+# ralentissement (toile mygale)
+func apply_web_effect():
+	speed *= 0.5
+	await get_tree().create_timer(10.0).timeout
+	speed *= 2  # ou remets la valeur initiale
+
 # Tir
 func SkillLoop() -> void:
 	#direction du tir

@@ -1,4 +1,3 @@
-# GameState.gd
 extends Node
 
 # Variables persistantes entre les scènes

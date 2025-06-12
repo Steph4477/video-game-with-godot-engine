@@ -41,11 +41,11 @@ func _on_Timer_timeout() -> void:
 		get_parent().add_child(b)
 
 	var m = randi_range(0, 9)
-	if m < 7:
+	if m < 3:
 		dirx = -1
 		vel.x = -SPEED
 		sprite.flip_h = false
-	elif m > 7:
+	elif m > 6:
 		dirx = 1
 		vel.x = SPEED
 		sprite.flip_h = true

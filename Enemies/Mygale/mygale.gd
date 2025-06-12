@@ -1,10 +1,10 @@
 extends CharacterBody2D
 
 @export var max_hp: int = 400
-@onready var health_bar = $HealthBar/TextureProgressBar
+@onready var health_bar = $HealthBar/ProgressBar
 @export var speed = 200
-@export var attack_range = 610.0
-@export var cooldown = 2.0
+@export var attack_range = 410.0
+@export var cooldown = 3.0
 
 var can_shoot = true
 var DeathEffect = preload("res://Effects/enemy_death_particles.tscn") 
@@ -17,43 +17,60 @@ const GRAVITY = 2000.0
 var damage = 200
 var pv = max_hp
 var is_attacking = false
+var has_shot = false
 var last_direction = 0
 var player: Node2D
 
 func _ready() -> void:
+	await get_tree().process_frame # 🔴⚠️⚡️ IMPORTANT ⚡️⚠️🔴 Attendre que GameState et Player soient prêts
 	current_hp = max_hp
-	player = get_parent().get_node("player")
-	print("player trouvé :", player)
-	
+	find_and_bind_player()
+	$AnimatedSprite.frame_changed.connect(_on_frame_changed)
+
 func _physics_process(delta):
-	if not player:
+	if not is_instance_valid(player):
 		return
+
 
 	# Gravité
 	apply_gravity(delta)
 
 	# Se déplace vers le joueur
-	var direction = (player.global_position - global_position).normalized()
-	velocity.x = direction.x * speed
-	
-	# Flip du sprite selon la direction
-	$AnimatedSprite.flip_h = direction.x > 0
-
 	if not is_attacking:
+		var direction = (player.global_position - global_position).normalized()
+		velocity.x = direction.x * speed
+	
+		# Flip du sprite selon la direction
+		$AnimatedSprite.flip_h = direction.x > 0
+		
+		# Appliquer le flip physique à FlipNode
+		if $AnimatedSprite.flip_h:
+			$FlipNode.scale.x = -1
+		else:
+			$FlipNode.scale.x = 1
+
 		if velocity.x != 0:
 			$AnimatedSprite.play("walk")
 		else:
-			$AnimatedSprite.play("idle")  # si tu as une anim idle
-
+			$AnimatedSprite.play("idle") 
 	
 	# Tir
-	var distance = global_position.distance_to(player.global_position)
+	var target = player.get_node("TurnAxis").global_position
+	var distance = global_position.distance_to(target)
 	if distance < attack_range and can_shoot:
 		velocity.x = 0  # Arrête-toi pour tirer
 		await attack_and_shoot()
 
 	move_and_slide()
 
+func find_and_bind_player():
+	var gs = get_node_or_null("/root/GameManagement/SceneContainer/GameState")
+	player = gs.player
+	gs.connect("player_updated", Callable(self, "_on_player_changed"))
+
+func _on_player_changed(new_player: Node) -> void:
+	player = new_player
+	print("🎯 Nouveau joueur assigné :", player)
 
 func apply_gravity(delta: float) -> void:
 	if not is_on_floor():
@@ -64,27 +81,40 @@ func apply_gravity(delta: float) -> void:
 func attack_and_shoot() -> void:
 	can_shoot = false
 	is_attacking = true
-
+	has_shot = false  # Réinitialise pour ce tir
 	$AnimatedSprite.play("attaque")
 
-	# Calcule la durée exacte de l'animation
+	# Gestion du cooldown 
 	var frames = $AnimatedSprite.sprite_frames.get_frame_count("attaque")
 	var speed = $AnimatedSprite.sprite_frames.get_animation_speed("attaque")
 	var anim_duration = frames / speed
 
 	await get_tree().create_timer(anim_duration).timeout
 
-	# Tirer ensuite
-	var instance = projectile.instantiate()
-	get_parent().add_child(instance)
-	instance.global_position = global_position
-
-	var dir = (player.global_position - global_position).normalized()
-	instance.direction = dir
-
-	await get_tree().create_timer(cooldown).timeout
 	is_attacking = false
-	can_shoot = true
+
+# Tir a la dernière frame
+func _on_frame_changed():
+	if $AnimatedSprite.animation == "attaque":
+		var current_frame = $AnimatedSprite.frame
+		var total_frames = $AnimatedSprite.sprite_frames.get_frame_count("attaque")
+		
+		if current_frame == total_frames - 1 and not has_shot:
+			has_shot = true  # Évite les tirs multiples à la dernière frame
+
+			# → Crée et lance le projectile ici :
+			var instance = projectile.instantiate()
+			get_parent().add_child(instance)
+			instance.global_position = $FlipNode/Muzzle.global_position
+
+			var dir = Vector2.LEFT
+			if $AnimatedSprite.flip_h:
+				dir = Vector2.RIGHT
+			instance.direction = dir
+			
+			# 🕒 Début du cooldown 
+			await get_tree().create_timer(cooldown).timeout
+			can_shoot = true
 
 # Dommage subie avec healthbar
 func on_hit(damage: int) -> void:
@@ -116,13 +146,6 @@ func stone() -> void:
 	set_physics_process(true)
 	$Timer.start()
 	stone_coco = false
-
-	## Reprise du déplacement
-	#velocity.x = last_direction * SPEED
-	#if velocity.x != 0:
-		#$AnimatedSprite.play("walk")
-	#else:
-		#$AnimatedSprite.play("idle")
 
 # Fonction stoppage par le player
 func freeze() -> void:
@@ -156,13 +179,6 @@ func freeze() -> void:
 	$Timer.start()
 	frozen = false
 	
-	# Reprendre le deplacement précedent
-	#velocity.x = last_direction * SPEED
-	#if velocity.x != 0:
-		#$AnimatedSprite.play("walk")
-	#else:
-		#$AnimatedSprite.play("idle")
-
 # Affichage des degats flotant
 func show_damage_popup(amount: int) -> void:
 	var popup = preload("res://ItemsDecors/damage_popup.tscn").instantiate()
@@ -174,9 +190,9 @@ func show_damage_popup(amount: int) -> void:
 
 # Mort
 func die() -> void:
-	print("Le scormard est mort !")
+	print("L'araignée' est morte !")
 	
-	# Cacher le Scormard tout de suite
+	# Cacher l'araignée tout de suite
 	visible = false
 	set_physics_process(false)
 

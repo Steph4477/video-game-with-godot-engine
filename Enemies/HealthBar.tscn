@@ -4,7 +4,7 @@
 script/source = "extends Node2D
 
 @export var max_value := 100
-@onready var bar := $TextureProgressBar
+@onready var bar := $ProgressBar
 
 func _ready() -> void:
 	bar.max_value = max_value
@@ -25,7 +25,7 @@ func set_red_fill() -> void:
 [node name="HealthBar" type="Node2D"]
 script = SubResource("GDScript_msolp")
 
-[node name="TextureProgressBar" type="ProgressBar" parent="."]
+[node name="ProgressBar" type="ProgressBar" parent="."]
 offset_right = 40.0
 offset_bottom = 18.0
 scale = Vector2(2.71782, 1)

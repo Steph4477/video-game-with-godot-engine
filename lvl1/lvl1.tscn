@@ -1,6 +1,5 @@
-[gd_scene load_steps=33 format=3 uid="uid://f001f0m7opwe"]
+[gd_scene load_steps=35 format=3 uid="uid://f001f0m7opwe"]
 
-[ext_resource type="Script" uid="uid://bkvice5tqbx5p" path="res://scripts/GameState.gd" id="1_e63vn"]
 [ext_resource type="PackedScene" uid="uid://cbxfe41yjfrlh" path="res://Player/evo1.tscn" id="1_t3xnj"]
 [ext_resource type="PackedScene" uid="uid://ct7cfs6fktu4n" path="res://lvl1/Decors/tileForet.tscn" id="2_nklpm"]
 [ext_resource type="PackedScene" uid="uid://chd4s1iv4x63r" path="res://lvl1/Decors/platforms.tscn" id="3_dvpsw"]
@@ -67,8 +66,16 @@ size = Vector2(3.43382, 201.303)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uhs03"]
 size = Vector2(5.00002, 20)
 
-[node name="GameState" type="Node2D"]
-script = ExtResource("1_e63vn")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_avxqp"]
+size = Vector2(8.84192, 154.157)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mlm52"]
+size = Vector2(15.1071, 68.0162)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0804m"]
+size = Vector2(20, 84.5923)
+
+[node name="lvl1" type="Node2D"]
 
 [node name="ParalaxeCiel" parent="." instance=ExtResource("10_nklpm")]
 position = Vector2(330, -329)
@@ -76,27 +83,27 @@ scale = Vector2(3.28, 1)
 
 [node name="Foret" parent="." instance=ExtResource("2_nklpm")]
 
-[node name="player" parent="." instance=ExtResource("1_t3xnj")]
-position = Vector2(-65, 1375)
+[node name="Player" parent="." instance=ExtResource("1_t3xnj")]
+position = Vector2(216, 1359)
 scale = Vector2(1.00423, 1)
 speed = 500
 
 [node name="pique" parent="." instance=ExtResource("5_am3co")]
-position = Vector2(2259, 1365)
+position = Vector2(2255, 1377)
 rotation = -3.14159
 scale = Vector2(0.740046, -0.473848)
 frame_progress = 0.976109
 
 [node name="pique2" parent="." instance=ExtResource("5_am3co")]
-position = Vector2(2642, 1455)
+position = Vector2(2643, 1467)
 rotation = -3.14159
 scale = Vector2(0.25289, -0.145842)
 
 [node name="platforms" parent="." instance=ExtResource("3_dvpsw")]
-position = Vector2(813, 269)
+position = Vector2(825, 369)
 
 [node name="Platforms" type="StaticBody2D" parent="."]
-position = Vector2(730.3, -1817)
+position = Vector2(736, -1804)
 scale = Vector2(0.089149, 0.144557)
 collision_layer = 2
 
@@ -164,7 +171,7 @@ scale = Vector2(144.607, 694.703)
 shape = SubResource("RectangleShape2D_t3xnj")
 
 [node name="CollisionShape2D30" type="CollisionShape2D" parent="Platforms"]
-position = Vector2(27125.4, 16789.2)
+position = Vector2(27231.9, 16768.5)
 scale = Vector2(222.011, 12.5199)
 shape = SubResource("RectangleShape2D_cvxqb")
 
@@ -194,21 +201,32 @@ rotation = -3.14159
 scale = Vector2(286.449, -13.7806)
 shape = SubResource("RectangleShape2D_uhs03")
 
-[node name="champi" parent="." instance=ExtResource("4_6nqw4")]
-position = Vector2(4735, 1305)
-scale = Vector2(-1.47749, 1.31411)
+[node name="CollisionShape2D25" type="CollisionShape2D" parent="Platforms"]
+position = Vector2(41531.6, 20016.3)
+scale = Vector2(222.011, 12.5199)
+shape = SubResource("RectangleShape2D_avxqp")
+
+[node name="CollisionShape2D27" type="CollisionShape2D" parent="Platforms"]
+position = Vector2(41542.8, 21447.9)
+scale = Vector2(222.011, 12.5199)
+shape = SubResource("RectangleShape2D_mlm52")
+
+[node name="CollisionShape2D28" type="CollisionShape2D" parent="Platforms"]
+position = Vector2(41593.3, 22340.3)
+scale = Vector2(222.011, 12.5199)
+shape = SubResource("RectangleShape2D_0804m")
 
 [node name="abdo" parent="." instance=ExtResource("9_yj1qu")]
-position = Vector2(1478, 1491)
+position = Vector2(3196, 605)
 
 [node name="Cocotier" parent="." instance=ExtResource("13_f0kof")]
-position = Vector2(1171, 1254)
+position = Vector2(1163, 1268)
 
 [node name="CocoLoot" parent="." instance=ExtResource("14_211dj")]
 position = Vector2(1231, 1029)
 
 [node name="Bananier" parent="." instance=ExtResource("13_ofnsq")]
-position = Vector2(758, 1250)
+position = Vector2(756, 1262)
 
 [node name="BananeLoot" parent="." instance=ExtResource("14_e63vn")]
 position = Vector2(826, 1203)
@@ -216,7 +234,26 @@ position = Vector2(826, 1203)
 [node name="Hud" parent="." instance=ExtResource("15_vc1ff")]
 
 [node name="mygale" parent="." instance=ExtResource("15_kgp0u")]
-position = Vector2(862, 1428)
+position = Vector2(5767, 1400)
 
 [node name="scormard" parent="." instance=ExtResource("15_f0kof")]
-position = Vector2(3110, 1353)
+position = Vector2(3111, 1428)
+
+[node name="champi" parent="." instance=ExtResource("4_6nqw4")]
+position = Vector2(1458, 1394)
+
+[node name="Bananier2" parent="." instance=ExtResource("13_ofnsq")]
+position = Vector2(4131, 1264)
+scale = Vector2(-1, 1)
+
+[node name="Cocotier2" parent="." instance=ExtResource("13_f0kof")]
+position = Vector2(5366, 1270)
+scale = Vector2(-1, 1)
+
+[node name="CocoLoot2" parent="." instance=ExtResource("14_211dj")]
+position = Vector2(5302, 1036)
+scale = Vector2(-1, 1)
+
+[node name="BananeLoot2" parent="." instance=ExtResource("14_e63vn")]
+position = Vector2(4064, 1224)
+scale = Vector2(-1, 1)

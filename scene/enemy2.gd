@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @export var max_hp: int = 400
-@onready var health_bar = $HealthBar/TextureProgressBar
+@onready var health_bar = $HealthBar/ProgressBar
 var DeathEffect = preload("res://Effects/enemy_death_particles.tscn") 
 var BaveFlac = preload("res://Loot/bave_flaque_static.tscn")
 var current_hp: int
@@ -13,6 +13,7 @@ var damage: int = 200
 var pv = max_hp
 var is_attacking := false
 var last_direction := 0
+var is_dead = false
 
 func _ready() -> void:
 	randomize()
@@ -41,7 +42,7 @@ func on_hit(damage: int) -> void:
 	show_damage_popup(damage)
 
 func stone() -> void:
-	if stone_coco:
+	if stone_coco or is_dead:
 		return
 	stone_coco = true
 	set_physics_process(false)
@@ -70,7 +71,7 @@ func stone() -> void:
 
 # Fonction stoppage par le player
 func freeze() -> void:
-	if frozen:
+	if frozen or is_dead:
 		return
 	frozen = true
 	set_physics_process(false)
@@ -118,30 +119,21 @@ func show_damage_popup(amount: int) -> void:
 
 # Mort
 func die() -> void:
-	print("Le scormard est mort !")
+	if is_dead:
+		return
+	is_dead = true
+
+	await get_tree().process_frame
 	
-	# Cacher le Scormard tout de suite
-	visible = false
-	set_physics_process(false)
+	# 🧠 Calcule la durée réelle de l'animation
+	$AnimatedSprite.play("die")
+	var frames = $AnimatedSprite.sprite_frames.get_frame_count("die")
+	var speed = $AnimatedSprite.sprite_frames.get_animation_speed("die")
+	var anim_duration = frames / speed 
 
-	# 💥 Particules de mort
-	var particles = DeathEffect.instantiate()
-	particles.global_position = global_position
-	get_parent().add_child(particles)
-
-	var cpu_particles = particles.get_node("CPUParticles2D")
-	cpu_particles.emitting = true
-
-	# 🔁 Attendre que les particules aient fini d’émettre
-	await wait_for_particles_to_finish(cpu_particles)
-
-	# 💧 Instancier la bave
-	var bave = BaveFlac.instantiate()
-	bave.global_position = global_position + Vector2(0, 10)
-	get_tree().current_scene.add_child(bave)
-
-	print("Bave ajoutée après particules !")
-	print_tree()
+	# 🔁 Attente basée sur la durée exacte de l'animation
+	await get_tree().create_timer(anim_duration).timeout
+	
 	queue_free()
 
 func wait_for_particles_to_finish(p: CPUParticles2D) -> void:
@@ -151,7 +143,10 @@ func wait_for_particles_to_finish(p: CPUParticles2D) -> void:
 
 # Détection collision avec joueur
 func _on_Area2D_body_entered(body: Node) -> void:
+	if is_dead or is_attacking:
+		return
 	if body.is_in_group("Player") and not is_attacking:
+		print("en contact avec :", body)
 		is_attacking = true
 		velocity.x = 0  # 🛑 Stoppe le mouvement
 		$AnimatedSprite.play("attaque")
@@ -163,7 +158,7 @@ func _on_Area2D_body_entered(body: Node) -> void:
 
 # Mouvement aléatoire contrôlé par timer
 func _on_Timer_timeout() -> void:
-	if is_attacking or frozen :
+	if is_dead or is_attacking or frozen:
 		return  # 🛑 Ignore le mouvement si en train d’attaquer
 	var m = randi_range(0, 10)
 	if m < 5:

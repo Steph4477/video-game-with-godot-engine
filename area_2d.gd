@@ -11,5 +11,11 @@ func _on_body_entered(body: Node2D) -> void:
 		abdo_version.position = body.position
 		var parent = body.get_parent()
 		parent.add_child(abdo_version)
+		
+		# 🧠 Signaler le nouveau joueur au GameState
+		var game_state = get_node_or_null("/root/GameManagement/SceneContainer/GameState")
+		if game_state:
+			game_state.set_player(abdo_version)
+		
 		body.queue_free()  # supprime l'ancien joueur
 		queue_free()       # supprime le loot

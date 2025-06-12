@@ -82,18 +82,18 @@ shape = SubResource("RectangleShape2D_j3qaj")
 position = Vector2(145, 69.7545)
 scale = Vector2(0.1, 0.094)
 sprite_frames = SubResource("2")
-animation = &"climb"
+animation = &"idle"
 
 [node name="HealthBar" parent="." instance=ExtResource("7_hq058")]
 position = Vector2(120, 22)
 scale = Vector2(0.1, 0.094)
 
 [node name="TurnAxis" type="Marker2D" parent="."]
-position = Vector2(108, 35.9077)
+position = Vector2(151, 44)
 rotation = 0.785398
 
 [node name="CastPoint" type="Marker2D" parent="TurnAxis"]
-position = Vector2(41.033, -18.9035)
+position = Vector2(-1.41421, 1.41425)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(151, 61)

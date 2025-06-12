@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://lt163krgrux1"]
+[gd_scene load_steps=14 format=3 uid="uid://lt163krgrux1"]
 
 [ext_resource type="Script" uid="uid://cnquios5860dx" path="res://scene/enemy2.gd" id="1_hyu5o"]
 [ext_resource type="Texture2D" uid="uid://c4fie5q7uab1i" path="res://Enemies/Scormard/enemyataque2.png" id="2_ucyh2"]
 [ext_resource type="Texture2D" uid="uid://psgutnnpdua1" path="res://Enemies/Scormard/enemyataque.png" id="3_lppxe"]
 [ext_resource type="Texture2D" uid="uid://dt5f7rdfoxyxx" path="res://Enemies/Scormard/enemyface.png" id="4_samuv"]
 [ext_resource type="Texture2D" uid="uid://cx744nsqxs5qr" path="res://Enemies/Scormard/slide01.png" id="5_g2imt"]
+[ext_resource type="Texture2D" uid="uid://dmv137wy3casr" path="res://Enemies/Scormard/die.png" id="5_ucyh2"]
 [ext_resource type="Texture2D" uid="uid://q53xb71wcsax" path="res://Enemies/Scormard/slide1.png" id="6_4rgcv"]
 [ext_resource type="Texture2D" uid="uid://c6c50erfwud1f" path="res://Enemies/Scormard/slide2.png" id="7_6e20w"]
 [ext_resource type="Texture2D" uid="uid://b36h1sf05kr75" path="res://Enemies/Scormard/enemyprofil.png" id="8_321e1"]
@@ -25,6 +26,14 @@ animations = [{
 "loop": false,
 "name": &"attaque",
 "speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_ucyh2")
+}],
+"loop": true,
+"name": &"die",
+"speed": 1.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -81,21 +90,21 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hyu5o"]
-radius = 48.0
+radius = 173.405
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hyu5o"]
+size = Vector2(173.333, 66.6666)
 
 [node name="scormard" type="CharacterBody2D" groups=["Enemies"]]
 position = Vector2(712.318, 417.911)
+scale = Vector2(0.6, 0.6)
 collision_layer = 8
-collision_mask = 131
+collision_mask = 3
 script = ExtResource("1_hyu5o")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
-
-[node name="HPBar" type="TextureProgressBar" parent="."]
-value = 100.0
-nine_patch_stretch = true
 
 [node name="HealthBar" parent="." instance=ExtResource("9_fs8jn")]
 position = Vector2(-56.318, -152.911)
@@ -105,19 +114,19 @@ scale = Vector2(1.391, 1.11)
 position = Vector2(5.68201, -1.91101)
 scale = Vector2(0.3, 0.318)
 sprite_frames = SubResource("1")
-animation = &"attaque"
+animation = &"die"
 
 [node name="Area2D" type="Area2D" parent="." groups=["Enemies"]]
 position = Vector2(30.682, 39.089)
 collision_layer = 8
-collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0.454733, -28.9407)
 shape = SubResource("CircleShape2D_hyu5o")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(30.682, 39.089)
-shape = SubResource("CircleShape2D_hyu5o")
+position = Vector2(9.46973, 71.815)
+shape = SubResource("RectangleShape2D_hyu5o")
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

@@ -4,46 +4,36 @@
 script/source = "extends Node2D
 
 @export var max_value := 100
-@onready var bar := $TextureProgressBar
-
-# Couleurs dynamiques
-var style_green := StyleBoxFlat.new()
-var style_orange := StyleBoxFlat.new()
-var style_red := StyleBoxFlat.new()
+@onready var bar := $ProgressBar
 
 func _ready() -> void:
 	bar.max_value = max_value
 	bar.value = max_value
-	style_green.bg_color = Color(0, 1, 0)
-	style_orange.bg_color = Color(1, 0.5, 0)
-	style_red.bg_color = Color(1, 0, 0)
-	update_bar_style()
+	set_green_fill()
 
 func set_value(v: int) -> void:
-	bar.value = clamp(v, 0, max_value)
-	update_bar_style()
+	var clamped = clamp(v, 0, max_value)
+	bar.value = clamped
+	print(\"🔢 HealthBar actuelle : \", clamped, \"/\", max_value)
 
-func update_bar_style() -> void:
-	if bar and bar.max_value > 0:
-		var ratio: float = float(bar.value) / float(bar.max_value)
-		if ratio > 0.5:
-			bar.add_theme_stylebox_override(\"fill\", style_green)
-		elif ratio > 0.2:
-			bar.add_theme_stylebox_override(\"fill\", style_orange)
-		else:
-			bar.add_theme_stylebox_override(\"fill\", style_red)
+func set_green_fill() -> void:
+	var green_fill := StyleBoxFlat.new()
+	green_fill.bg_color = Color(0.0, 1.0, 0.0)  # Vert vif
+	bar.add_theme_stylebox_override(\"fill\", green_fill)
 "
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_msolp"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ol2up"]
 
 [node name="HealthBar" type="Node2D"]
 script = SubResource("GDScript_msolp")
 
-[node name="TextureProgressBar" type="ProgressBar" parent="."]
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -1.0
+offset_top = 1.0
 offset_right = 217.0
-offset_bottom = 80.0
+offset_bottom = 81.0
 scale = Vector2(2.71782, 1)
-theme_override_styles/background = SubResource("StyleBoxFlat_msolp")
+theme_override_styles/background = SubResource("StyleBoxFlat_ol2up")
 max_value = 1000.0
 step = 10.0
 value = 100.0

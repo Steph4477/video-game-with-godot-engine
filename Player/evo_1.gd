@@ -1,10 +1,11 @@
 extends CharacterBody2D
 
 @export var speed = 500
+@export var max_hp = 2000
 @export var jump_force = -1200
 @export var gravity = 1200
-@export var pv = 2000
-@onready var health_bar = $HealthBar/TextureProgressBar
+@export var pv = max_hp # Pour l'utilisation de la healt barre
+@onready var health_bar = $HealthBar/ProgressBar
 @onready var banane_label = get_node("../Hud/HBoxContainerBanane/BananeCountLabel")
 @onready var coco_label = get_node("../Hud/HBoxContainerCoco/CocoCountLabel")
 
@@ -32,6 +33,33 @@ var moving_right = false
 var jumping = false
 var moving_down = false
 
+func _ready():
+	$Camera2D.make_current()
+	print("🧪 _ready Player lancé")
+	
+	await get_tree().process_frame  # attendre que tout soit bien en place
+
+	var game_state = get_node_or_null("/root/GameManagement/SceneContainer/GameState")
+	if game_state:
+		print("🎯 GameState trouvé depuis Player :", game_state)
+		set_game_state(game_state)
+	else:
+		print("❌ GameState introuvable depuis Player")
+	print("🧪 gs au ready :", game_state)
+	health_bar.max_value = max_hp
+	health_bar.value = pv
+
+func set_game_state(gs):
+	game_state = gs
+	print("🎯 GameState reçu :", game_state)
+
+	# Maintenant que GameState est là, on peut utiliser ses données
+	banane_count = game_state.banane_count
+	coco_count = game_state.coco_count
+	can_fire_banane = game_state.can_fire_banane
+	can_fire_coco = game_state.can_fire_coco
+	gs.set_player(self)
+
 func set_can_climb(value: bool) -> void:
 	can_climb = value
 	if !value:
@@ -41,21 +69,6 @@ func set_can_climbCoco(value: bool) -> void:
 	can_climbCoco = value
 	if !value:
 		is_climbingCoco = false
-
-func _ready():
-	$Camera2D.make_current()
-	await get_tree().process_frame  # attend une frame pour que la scene courante soit prête
-	game_state = get_tree().current_scene.get_node("../GameState")
-	
-	if game_state:
-		print("✅ GameState trouvé :", game_state)
-		# Initialisation depuis GameState
-		banane_count = game_state.banane_count
-		coco_count = game_state.coco_count
-		can_fire_banane = game_state.can_fire_banane
-		can_fire_coco = game_state.can_fire_coco
-	else:
-		print("❌ GameState introuvable")
 
 func _physics_process(delta: float) -> void:
 	# Gravité
@@ -152,13 +165,13 @@ func update_animation() -> void:
 
 func on_hit(damage: int) -> void:
 	pv -= damage
-	print("HealthBar trouvé ? ", health_bar)
+	pv = clamp(pv, 0, max_hp)
+	print("HealthBar joueur trouvée ? ", health_bar)
 	if health_bar:
-		health_bar.max_value = pv
-		health_bar.set_value(pv)
+		health_bar.value = pv
 	print("PV restants : ", pv)
 	show_damage_popup(damage)
-	
+
 func show_damage_popup(amount: int) -> void:
 	var popup = preload("res://ItemsDecors/damage_popup.tscn").instantiate()
 	add_child(popup)
@@ -168,7 +181,7 @@ func show_damage_popup(amount: int) -> void:
 		die()
 
 func die() -> void:
-	print("Le joueur est mort !")
+	print("☠️ Le joueur est mort !")
 	get_tree().reload_current_scene()
 
 # Mise à jour du HUD

@@ -49,9 +49,16 @@ Help Moko:
 
 ## 📷 Screenshots & Media
 
+
+🎬 Click on the image below to watch the gameplay video:
+[![Voir la vidéo](https://imgur.com/hxp8L1u.png)](https://youtu.be/a-GokB_OXUk)
+
+
 ![Mon image](https://imgur.com/Jycy4aG.png)
-![Mon image](https://imgur.com/CvDUPJQ.png)
-![Mon image](https://imgur.com/aJu1gpR.png)
+
+
+![Mon image](https://imgur.com/IR5p9SY.png)
+
 ---
 
 ## 🔧 Installation

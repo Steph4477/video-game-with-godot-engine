@@ -4,9 +4,11 @@ extends CharacterBody2D
 @export var lifetime := 10.0
 @onready var sprite = $anim
 @onready var area = $Area2D
+var damage = 400
 
 var direction: Vector2 = Vector2.ZERO
 var has_collided = false
+
 func _ready():
 	sprite.play("attaque_toile")
 	await get_tree().create_timer(lifetime).timeout
@@ -24,7 +26,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		print("Le joueur a été touché par la toile !")
 		has_collided = true
 
-		var effet_scene = preload("res://effet_toile_collée.tscn")
+		var effet_scene = preload("res://Effects/effet_toile_collée.tscn")
 		var effet = effet_scene.instantiate()
 		
 		get_tree().current_scene.add_child(effet)
@@ -33,5 +35,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		# Applique l’effet au joueur
 		if body.has_method("apply_web_effect"):
 			body.apply_web_effect()
-
-			queue_free()
+		# Applique les dégâts 
+		queue_free()
+		if body.has_method("on_hit"):
+			body.on_hit(damage)

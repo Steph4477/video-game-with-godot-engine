@@ -26,7 +26,7 @@ animations = [{
 radius = 5.97944
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xepjl"]
-radius = 24.7386
+radius = 15.493
 
 [node name="Toile" type="CharacterBody2D"]
 collision_layer = 8
@@ -46,10 +46,12 @@ shape = SubResource("CircleShape2D_bydea")
 [node name="Timer" type="Timer" parent="."]
 
 [node name="Area2D" type="Area2D" parent="." groups=["Enemies"]]
+scale = Vector2(0.560001, 0.360001)
 collision_layer = 8
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(2.84, 4.36)
 shape = SubResource("CircleShape2D_xepjl")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

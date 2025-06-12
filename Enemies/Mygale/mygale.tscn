@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://cohmext14ho56"]
+[gd_scene load_steps=11 format=3 uid="uid://cohmext14ho56"]
 
 [ext_resource type="Script" uid="uid://jojs3i2towy0" path="res://Enemies/Mygale/mygale.gd" id="1_g1fhx"]
+[ext_resource type="Texture2D" uid="uid://n2rl8icsahv5" path="res://Enemies/Mygale/attaque3.png" id="2_mvlt6"]
 [ext_resource type="Texture2D" uid="uid://ckp16qwvcq1" path="res://Enemies/Mygale/attaque.png" id="2_tlaig"]
 [ext_resource type="Texture2D" uid="uid://mwurl35unoxj" path="res://Enemies/Mygale/idle.png" id="3_mvlt6"]
 [ext_resource type="Texture2D" uid="uid://cx8s66ryawj51" path="res://Enemies/Mygale/walk1.png" id="4_sxn7g"]
@@ -11,11 +12,14 @@
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("2_mvlt6")
+}, {
+"duration": 1.0,
 "texture": ExtResource("2_tlaig")
 }],
-"loop": false,
+"loop": true,
 "name": &"attaque",
-"speed": 2.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -62,7 +66,7 @@ radius = 65.0077
 [node name="mygale" type="CharacterBody2D" groups=["Enemies"]]
 position = Vector2(712.318, 417.911)
 collision_layer = 8
-collision_mask = 131
+collision_mask = 3
 script = ExtResource("1_g1fhx")
 
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
@@ -70,12 +74,16 @@ position = Vector2(5.68201, -1.91101)
 scale = Vector2(0.3, 0.318)
 sprite_frames = SubResource("1")
 animation = &"attaque"
-frame_progress = 1.0
+
+[node name="FlipNode" type="Node2D" parent="."]
+
+[node name="Muzzle" type="Marker2D" parent="FlipNode"]
+position = Vector2(-114.318, -29.911)
+rotation = 0.785398
 
 [node name="Area2D" type="Area2D" parent="." groups=["Enemies"]]
 position = Vector2(30.682, 39.089)
 collision_layer = 8
-collision_mask = 129
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-18.75, -50)
@@ -84,10 +92,6 @@ shape = SubResource("RectangleShape2D_4q0aj")
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
-
-[node name="HPBar" type="TextureProgressBar" parent="."]
-value = 100.0
-nine_patch_stretch = true
 
 [node name="HealthBar" parent="." instance=ExtResource("9_kg14j")]
 position = Vector2(-49.318, -93.911)

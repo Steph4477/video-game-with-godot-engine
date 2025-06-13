@@ -8,6 +8,12 @@
 [ext_resource type="Texture2D" uid="uid://bhugkh6xqlinf" path="res://Enemies/Mygale/walk2.png" id="5_g1fhx"]
 [ext_resource type="PackedScene" uid="uid://nx7n3qyhsmbr" path="res://Enemies/HealthBar.tscn" id="9_kg14j"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4q0aj"]
+size = Vector2(88.5, 58)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g1fhx"]
+radius = 65.0077
+
 [sub_resource type="SpriteFrames" id="1"]
 animations = [{
 "frames": [{
@@ -57,23 +63,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4q0aj"]
-size = Vector2(88.5, 58)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_g1fhx"]
-radius = 65.0077
-
 [node name="mygale" type="CharacterBody2D" groups=["Enemies"]]
 position = Vector2(712.318, 417.911)
 collision_layer = 8
 collision_mask = 3
 script = ExtResource("1_g1fhx")
-
-[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(5.68201, -1.91101)
-scale = Vector2(0.3, 0.318)
-sprite_frames = SubResource("1")
-animation = &"attaque"
 
 [node name="FlipNode" type="Node2D" parent="."]
 
@@ -100,6 +94,14 @@ scale = Vector2(1.07101, 1.11)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(6.682, -24.911)
 shape = SubResource("CircleShape2D_g1fhx")
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(5.68201, -1.91101)
+scale = Vector2(0.3, 0.318)
+sprite_frames = SubResource("1")
+animation = &"attaque"
+frame = 1
+frame_progress = 0.107307
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

@@ -156,6 +156,7 @@ func update_animation() -> void:
 		return # Empêche de passer aux conditions suivantes !
 	if velocity.y < 0:
 		$anim.play("jump_up")
+		$Sound/Jump.play()
 	elif velocity.y > 0:
 		$anim.play("jump_down")
 	elif velocity.x != 0:

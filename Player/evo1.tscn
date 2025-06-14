@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://healthbar" path="res://Player/HealthBar/HealthBar.tscn" id="19_rbgwy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j3qaj"]
-size = Vector2(610, 808.511)
+size = Vector2(610, 659.575)
 
 [sub_resource type="SpriteFrames" id="2"]
 animations = [{
@@ -76,12 +76,13 @@ animations = [{
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 1
 position = Vector2(703, 539)
+scale = Vector2(1.2, 1.2)
 collision_mask = 270
 script = ExtResource("1_5psm4")
 speed = 600
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Player"]]
-position = Vector2(149.5, 77)
+position = Vector2(149.5, 70)
 scale = Vector2(0.1, 0.094)
 shape = SubResource("RectangleShape2D_j3qaj")
 
@@ -89,7 +90,7 @@ shape = SubResource("RectangleShape2D_j3qaj")
 position = Vector2(149, 71)
 scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("2")
-animation = &"jump_up"
+animation = &"walk"
 
 [node name="HealthBar" parent="." instance=ExtResource("19_rbgwy")]
 position = Vector2(120, 22)

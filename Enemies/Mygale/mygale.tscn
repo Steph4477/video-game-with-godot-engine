@@ -72,7 +72,7 @@ script = ExtResource("1_g1fhx")
 [node name="FlipNode" type="Node2D" parent="."]
 
 [node name="Muzzle" type="Marker2D" parent="FlipNode"]
-position = Vector2(-114.318, -29.911)
+position = Vector2(-25.318, -18.911)
 rotation = 0.785398
 
 [node name="Area2D" type="Area2D" parent="." groups=["Enemies"]]
@@ -96,7 +96,7 @@ position = Vector2(6.682, -24.911)
 shape = SubResource("CircleShape2D_g1fhx")
 
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(5.68201, -1.91101)
+position = Vector2(6.68201, -1.91101)
 scale = Vector2(0.3, 0.318)
 sprite_frames = SubResource("1")
 animation = &"attaque"

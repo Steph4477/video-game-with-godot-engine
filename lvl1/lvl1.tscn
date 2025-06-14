@@ -21,7 +21,7 @@
 size = Vector2(2.23209, 104.915)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dvpsw"]
-size = Vector2(265.519, 6.57567)
+size = Vector2(265.519, 14.0381)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_am3co"]
 size = Vector2(6.79244, 32.0992)
@@ -86,11 +86,6 @@ scale = Vector2(3.28, 1)
 
 [node name="Foret" parent="." instance=ExtResource("2_nklpm")]
 
-[node name="Player" parent="." instance=ExtResource("1_t3xnj")]
-position = Vector2(216, 1359)
-scale = Vector2(1.00423, 1)
-speed = 500
-
 [node name="pique" parent="." instance=ExtResource("5_am3co")]
 position = Vector2(2255, 1377)
 rotation = -3.14159
@@ -117,7 +112,7 @@ scale = Vector2(286.449, -13.7806)
 shape = SubResource("RectangleShape2D_wajbs")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Platforms"]
-position = Vector2(28735, 22966.7)
+position = Vector2(28735, 22911.5)
 scale = Vector2(283.803, 14.7983)
 shape = SubResource("RectangleShape2D_dvpsw")
 
@@ -265,3 +260,6 @@ scale = Vector2(-1, 1)
 
 [node name="lvl1" type="AudioStreamPlayer2D" parent="Sound"]
 stream = ExtResource("16_kgp0u")
+
+[node name="Player" parent="." instance=ExtResource("1_t3xnj")]
+position = Vector2(4832, 1341)

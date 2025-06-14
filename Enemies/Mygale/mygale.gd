@@ -3,9 +3,8 @@ extends CharacterBody2D
 @export var max_hp: int = 400
 @onready var health_bar = $HealthBar/ProgressBar
 @export var speed = 200
-@export var attack_range = 410.0
-@export var cooldown = 3.0
-
+@export var attack_range = 1000
+@export var cooldown = 1.5
 var can_shoot = true
 var DeathEffect = preload("res://Effects/enemy_death_particles.tscn") 
 var BaveFlac = preload("res://Loot/bave_flaque_static.tscn")

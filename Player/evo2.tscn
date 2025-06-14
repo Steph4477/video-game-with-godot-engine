@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://n8rno2pqq1d0"]
+[gd_scene load_steps=13 format=3 uid="uid://n8rno2pqq1d0"]
 
 [ext_resource type="Script" uid="uid://dyeicmeurx1u6" path="res://Player/evo_2.gd" id="1_px5qv"]
 [ext_resource type="Texture2D" uid="uid://5rhsrdp8mupj" path="res://Player/idle_abdo.png" id="2_br2bb"]
@@ -9,9 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://cjmv70v7j2rfl" path="res://Player/escalade.png" id="4_vpd2s"]
 [ext_resource type="Texture2D" uid="uid://c1787iafjhgb0" path="res://Player/walk_abdo.png" id="5_nowc1"]
 [ext_resource type="PackedScene" uid="uid://healthbar" path="res://Player/HealthBar/HealthBar.tscn" id="7_hq058"]
+[ext_resource type="Texture2D" uid="uid://b5exa7s1uydhd" path="res://Player/walk_abdo2.png" id="9_xq0a7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j3qaj"]
-size = Vector2(610, 648.937)
+size = Vector2(560, 659.575)
 
 [sub_resource type="SpriteFrames" id="2"]
 animations = [{
@@ -61,6 +62,9 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("5_nowc1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_xq0a7")
 }],
 "loop": true,
 "name": &"walk",
@@ -70,11 +74,12 @@ animations = [{
 [node name="player" type="CharacterBody2D" groups=["Player"]]
 z_index = 1
 position = Vector2(703, 539)
+scale = Vector2(1.4, 1.4)
 collision_mask = 334
 script = ExtResource("1_px5qv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(149.5, 69.5)
+position = Vector2(147, 69.9999)
 scale = Vector2(0.1, 0.094)
 shape = SubResource("RectangleShape2D_j3qaj")
 
@@ -82,7 +87,8 @@ shape = SubResource("RectangleShape2D_j3qaj")
 position = Vector2(145, 69.7545)
 scale = Vector2(0.1, 0.094)
 sprite_frames = SubResource("2")
-animation = &"idle"
+animation = &"walk"
+frame_progress = 0.684669
 
 [node name="HealthBar" parent="." instance=ExtResource("7_hq058")]
 position = Vector2(120, 22)

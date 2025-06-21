@@ -1,75 +1,62 @@
 extends CharacterBody2D
 
 @export var max_hp: int = 400
+@export var speed: int = 200
+@export var attack_range: int = 1000
+@export var cooldown: float = 1.5
+@export var damage: int = 200
+
 @onready var health_bar = $HealthBar/ProgressBar
-@export var speed = 200
-@export var attack_range = 1000
-@export var cooldown = 1.5
-var can_shoot = true
+@onready var anim_sprite = $AnimatedSprite
+@onready var muzzle = $FlipNode/Muzzle
+@onready var timer = $Timer
+
+var can_shoot := true
+var is_attacking := false
+var has_shot := false
+var frozen := false
+var stone_coco := false
+var pv := max_hp
+var player: Node2D
+
 var DeathEffect = preload("res://Effects/enemy_death_particles.tscn") 
 var BaveFlac = preload("res://Loot/bave_flaque_static.tscn")
 var projectile = preload("res://Tir/toile.tscn")
-var current_hp: int
-var frozen = false
-var stone_coco = false
+var ToilePlafond = preload("res://Effects/plafonds.tscn")
+
 const GRAVITY = 2000.0
-var damage = 200
-var pv = max_hp
-var is_attacking = false
-var has_shot = false
-var last_direction = 0
-var player: Node2D
 
 func _ready() -> void:
-	await get_tree().process_frame # 🔴⚠️⚡️ IMPORTANT ⚡️⚠️🔴 Attendre que GameState et Player soient prêts
-	current_hp = max_hp
+	await get_tree().process_frame
+	pv = max_hp
 	find_and_bind_player()
-	$AnimatedSprite.frame_changed.connect(_on_frame_changed)
+	anim_sprite.frame_changed.connect(_on_frame_changed)
 
-func _physics_process(delta):
-	if not is_instance_valid(player):
+	# Phase d'apparition suspendue
+	await play_plafond_intro()
+
+func _physics_process(delta: float) -> void:
+	if not is_instance_valid(player) or is_attacking:
 		return
 
-
-	# Gravité
 	apply_gravity(delta)
 
-	# Se déplace vers le joueur
-	if not is_attacking:
-		var direction = (player.global_position - global_position).normalized()
-		velocity.x = direction.x * speed
-	
-		# Flip du sprite selon la direction
-		$AnimatedSprite.flip_h = direction.x > 0
-		
-		# Appliquer le flip physique à FlipNode
-		if $AnimatedSprite.flip_h:
-			$FlipNode.scale.x = -1
-		else:
-			$FlipNode.scale.x = 1
+	var direction = (player.global_position - global_position).normalized()
+	velocity.x = direction.x * speed
 
-		if velocity.x != 0:
-			$AnimatedSprite.play("walk")
-		else:
-			$AnimatedSprite.play("idle") 
-	
-	# Tir
+	anim_sprite.flip_h = direction.x > 0
+	$FlipNode.scale.x = -1 if anim_sprite.flip_h else 1
+
+	anim_sprite.play("walk" if velocity.x != 0 else "idle")
+
 	var target = player.get_node("TurnAxis").global_position
 	var distance = global_position.distance_to(target)
+
 	if distance < attack_range and can_shoot:
-		velocity.x = 0  # Arrête-toi pour tirer
+		velocity.x = 0
 		await attack_and_shoot()
 
 	move_and_slide()
-
-func find_and_bind_player():
-	var gs = get_node_or_null("/root/GameManagement/SceneContainer/GameState")
-	player = gs.player
-	gs.connect("player_updated", Callable(self, "_on_player_changed"))
-
-func _on_player_changed(new_player: Node) -> void:
-	player = new_player
-	print("🎯 Nouveau joueur assigné :", player)
 
 func apply_gravity(delta: float) -> void:
 	if not is_on_floor():
@@ -77,93 +64,120 @@ func apply_gravity(delta: float) -> void:
 	else:
 		velocity.y = 0
 
+func play_plafond_intro() -> void:
+	visible = false
+	set_physics_process(false)
+
+	var effet_toile = ToilePlafond.instantiate()
+	effet_toile.global_position = global_position + Vector2(0, -124)
+	get_parent().add_child(effet_toile)
+
+	await effet_toile.finished_descente
+	global_position = global_position + Vector2(0, 250)
+	visible = true
+	set_physics_process(true)
+
 func attack_and_shoot() -> void:
 	can_shoot = false
 	is_attacking = true
-	has_shot = false  # Réinitialise pour ce tir
-	$AnimatedSprite.play("attaque")
+	has_shot = false
+	anim_sprite.play("attaque")
 
-	# Gestion du cooldown 
-	var frames = $AnimatedSprite.sprite_frames.get_frame_count("attaque")
-	var speed = $AnimatedSprite.sprite_frames.get_animation_speed("attaque")
+	var frames = anim_sprite.sprite_frames.get_frame_count("attaque")
+	var speed = anim_sprite.sprite_frames.get_animation_speed("attaque")
 	var anim_duration = frames / speed
 
 	await get_tree().create_timer(anim_duration).timeout
-
 	is_attacking = false
 
-# Tir a la dernière frame
-func _on_frame_changed():
-	if $AnimatedSprite.animation == "attaque":
-		var current_frame = $AnimatedSprite.frame
-		var total_frames = $AnimatedSprite.sprite_frames.get_frame_count("attaque")
-		
-		if current_frame == total_frames - 1 and not has_shot:
-			has_shot = true  # Évite les tirs multiples à la dernière frame
+func shoot_projectile() -> void:
+	if anim_sprite.animation == "attaque":
+		var current_frame = anim_sprite.frame
+		var total_frames = anim_sprite.sprite_frames.get_frame_count("attaque")
 
-			# → Crée et lance le projectile ici :
+		if current_frame == total_frames - 1 and not has_shot:
+			has_shot = true
 			var instance = projectile.instantiate()
 			get_parent().add_child(instance)
-			instance.global_position = $FlipNode/Muzzle.global_position
-
-			var dir = Vector2.LEFT
-			if $AnimatedSprite.flip_h:
-				dir = Vector2.RIGHT
-			instance.direction = dir
-			
-			# 🕒 Début du cooldown 
+			instance.global_position = muzzle.global_position
+			instance.direction = Vector2.RIGHT if anim_sprite.flip_h else Vector2.LEFT
 			await get_tree().create_timer(cooldown).timeout
 			can_shoot = true
 
-# Dommage subie avec healthbar
-func on_hit(damage: int) -> void:
-	pv -= damage
-	print("HealthBar scormard trouvée ? ", health_bar)
+func _on_frame_changed() -> void:
+	shoot_projectile()
+
+func on_hit(damage_taken: int) -> void:
+	pv -= damage_taken
 	if health_bar:
 		health_bar.max_value = max_hp
-		health_bar.set_value(pv)
-	print("PV restants : ", pv)
-	show_damage_popup(damage)
+		health_bar.value = pv
+	show_damage_popup(damage_taken)
+
+func show_damage_popup(amount: int) -> void:
+	var popup = preload("res://ItemsDecors/damage_popup.tscn").instantiate()
+	add_child(popup)
+	popup.position = Vector2(0, -30)
+	popup.show_damage(amount)
+	if pv <= 0:
+		die()
+
+func die() -> void:
+	print("🕷️ L'araignée est morte.")
+	visible = false
+	set_physics_process(false)
+
+	var particles = DeathEffect.instantiate()
+	particles.global_position = global_position
+	get_parent().add_child(particles)
+
+	var cpu_particles = particles.get_node("CPUParticles2D")
+	cpu_particles.emitting = true
+
+	await wait_for_particles_to_finish(cpu_particles)
+
+	var bave = BaveFlac.instantiate()
+	bave.global_position = global_position + Vector2(0, 10)
+	get_tree().current_scene.add_child(bave)
+
+	queue_free()
+
+func wait_for_particles_to_finish(p: CPUParticles2D) -> void:
+	while p.emitting:
+		await get_tree().process_frame
 
 func stone() -> void:
 	if stone_coco:
 		return
 	stone_coco = true
 	set_physics_process(false)
-	$Timer.stop()
-	$AnimatedSprite.play("stone")
+	timer.stop()
+	anim_sprite.play("stone")
 
-	# 🧠 Calcule la durée réelle de l'animation
-	var frames = $AnimatedSprite.sprite_frames.get_frame_count("stone")
-	var speed = $AnimatedSprite.sprite_frames.get_animation_speed("stone")
+	var frames = anim_sprite.sprite_frames.get_frame_count("stone")
+	var speed = anim_sprite.sprite_frames.get_animation_speed("stone")
 	var anim_duration = frames / speed
 
-	# 🔁 Attente basée sur la durée exacte de l'animation
 	await get_tree().create_timer(anim_duration).timeout
-
-	# ✅ Fin de l'état "stone"
 	set_physics_process(true)
-	$Timer.start()
+	timer.start()
 	stone_coco = false
 
-# Fonction stoppage par le player
 func freeze() -> void:
 	if frozen:
 		return
 	frozen = true
 	set_physics_process(false)
-	$Timer.stop()
-	$AnimatedSprite.play("slide")
-	
-	# 🧠 Calcule la durée réelle de l'animation
-	var frames = $AnimatedSprite.sprite_frames.get_frame_count("slide")
-	var speed = $AnimatedSprite.sprite_frames.get_animation_speed("slide")
+	timer.stop()
+	anim_sprite.play("slide")
+
+	var frames = anim_sprite.sprite_frames.get_frame_count("slide")
+	var speed = anim_sprite.sprite_frames.get_animation_speed("slide")
 	var anim_duration = frames / speed
 
-	# Glisse en arrière pendant cette durée
 	var direction = -sign(velocity.x)
 	if direction == 0:
-		direction = -1  # recule par défaut
+		direction = -1
 	var slide_distance = 100.0
 	var slide_speed = slide_distance / anim_duration
 	var elapsed := 0.0
@@ -173,59 +187,25 @@ func freeze() -> void:
 		await get_tree().process_frame
 		elapsed += delta
 
-	# Fin de chute
 	set_physics_process(true)
-	$Timer.start()
+	timer.start()
 	frozen = false
-	
-# Affichage des degats flotant
-func show_damage_popup(amount: int) -> void:
-	var popup = preload("res://ItemsDecors/damage_popup.tscn").instantiate()
-	add_child(popup)
-	popup.position = Vector2(0, -30)  # position flottante au-dessus du joueur
-	popup.show_damage(amount)
-	if pv <= 0:
-		die()
 
-# Mort
-func die() -> void:
-	print("L'araignée' est morte !")
-	
-	# Cacher l'araignée tout de suite
-	visible = false
-	set_physics_process(false)
+func find_and_bind_player():
+	var gs = get_node_or_null("/root/GameManagement/SceneContainer/GameState")
+	if gs:
+		player = gs.player
+		gs.connect("player_updated", Callable(self, "_on_player_changed"))
 
-	# 💥 Particules de mort
-	var particles = DeathEffect.instantiate()
-	particles.global_position = global_position
-	get_parent().add_child(particles)
+func _on_player_changed(new_player: Node) -> void:
+	player = new_player
 
-	var cpu_particles = particles.get_node("CPUParticles2D")
-	cpu_particles.emitting = true
-
-	# 🔁 Attendre que les particules aient fini d’émettre
-	await wait_for_particles_to_finish(cpu_particles)
-
-	# 💧 Instancier la bave
-	var bave = BaveFlac.instantiate()
-	bave.global_position = global_position + Vector2(0, 10)
-	get_tree().current_scene.add_child(bave)
-
-	print("Bave ajoutée après particules !")
-	print_tree()
-	queue_free()
-
-func wait_for_particles_to_finish(p: CPUParticles2D) -> void:
-	# 🔁 Boucle jusqu’à ce que les particules s’arrêtent
-	while p.emitting:
-		await get_tree().process_frame
-
-# Détection collision avec joueur
 func _on_Area2D_body_entered(body: Node) -> void:
 	if body.is_in_group("Player") and not is_attacking:
-		velocity.x = 0  # 🛑 Stoppe le mouvement
+		velocity.x = 0
 		await attack_and_shoot()
-
-		# Applique les dégâts 
 		if body.has_method("on_hit"):
 			body.on_hit(damage)
+
+func _on_Timer_timeout() -> void:
+	pass

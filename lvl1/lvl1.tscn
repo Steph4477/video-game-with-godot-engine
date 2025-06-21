@@ -112,7 +112,7 @@ scale = Vector2(286.449, -13.7806)
 shape = SubResource("RectangleShape2D_wajbs")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Platforms"]
-position = Vector2(28735, 22911.5)
+position = Vector2(28413.1, 22939)
 scale = Vector2(283.803, 14.7983)
 shape = SubResource("RectangleShape2D_dvpsw")
 
@@ -232,16 +232,16 @@ position = Vector2(826, 1203)
 [node name="Hud" parent="." instance=ExtResource("15_vc1ff")]
 
 [node name="mygale" parent="." instance=ExtResource("15_kgp0u")]
-position = Vector2(5767, 1400)
+position = Vector2(3466, 1200)
 
 [node name="scormard" parent="." instance=ExtResource("15_f0kof")]
-position = Vector2(3111, 1428)
+position = Vector2(4925, 1393)
 
 [node name="champi" parent="." instance=ExtResource("4_6nqw4")]
 position = Vector2(1458, 1394)
 
 [node name="Bananier2" parent="." instance=ExtResource("13_ofnsq")]
-position = Vector2(4131, 1264)
+position = Vector2(3107, 1254)
 scale = Vector2(-1, 1)
 
 [node name="Cocotier2" parent="." instance=ExtResource("13_f0kof")]
@@ -253,7 +253,7 @@ position = Vector2(5302, 1036)
 scale = Vector2(-1, 1)
 
 [node name="BananeLoot2" parent="." instance=ExtResource("14_e63vn")]
-position = Vector2(4064, 1224)
+position = Vector2(3043, 1208)
 scale = Vector2(-1, 1)
 
 [node name="Sound" type="Node2D" parent="."]
@@ -262,4 +262,4 @@ scale = Vector2(-1, 1)
 stream = ExtResource("16_kgp0u")
 
 [node name="Player" parent="." instance=ExtResource("1_t3xnj")]
-position = Vector2(4832, 1341)
+position = Vector2(2823, 1272)

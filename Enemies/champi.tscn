@@ -81,7 +81,6 @@ autostart = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0.567741, 60.1507)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_gqsq2")
 
 [node name="HealthBar" parent="." instance=ExtResource("3_f3614")]

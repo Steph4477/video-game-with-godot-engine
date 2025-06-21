@@ -9,10 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://nx7n3qyhsmbr" path="res://Enemies/HealthBar.tscn" id="9_kg14j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4q0aj"]
-size = Vector2(88.5, 58)
+size = Vector2(109, 64)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g1fhx"]
-radius = 65.0077
+radius = 45.0111
 
 [sub_resource type="SpriteFrames" id="1"]
 animations = [{
@@ -64,24 +64,24 @@ animations = [{
 }]
 
 [node name="mygale" type="CharacterBody2D" groups=["Enemies"]]
-position = Vector2(712.318, 417.911)
 collision_layer = 8
 collision_mask = 3
 script = ExtResource("1_g1fhx")
+
+[node name="Area2D" type="Area2D" parent="." groups=["Enemies"]]
+position = Vector2(30.682, 39.089)
+collision_layer = 8
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-22.5, -63)
+shape = SubResource("RectangleShape2D_4q0aj")
 
 [node name="FlipNode" type="Node2D" parent="."]
 
 [node name="Muzzle" type="Marker2D" parent="FlipNode"]
 position = Vector2(-25.318, -18.911)
 rotation = 0.785398
-
-[node name="Area2D" type="Area2D" parent="." groups=["Enemies"]]
-position = Vector2(30.682, 39.089)
-collision_layer = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-18.75, -50)
-shape = SubResource("RectangleShape2D_4q0aj")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5
@@ -92,7 +92,7 @@ position = Vector2(-49.318, -93.911)
 scale = Vector2(1.07101, 1.11)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(6.682, -24.911)
+position = Vector2(1.68201, -5.91101)
 shape = SubResource("CircleShape2D_g1fhx")
 
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
@@ -101,7 +101,6 @@ scale = Vector2(0.3, 0.318)
 sprite_frames = SubResource("1")
 animation = &"attaque"
 frame = 1
-frame_progress = 0.107307
+frame_progress = 0.381436
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

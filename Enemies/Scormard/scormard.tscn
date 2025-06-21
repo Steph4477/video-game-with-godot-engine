@@ -96,7 +96,6 @@ radius = 173.405
 size = Vector2(173.333, 66.6666)
 
 [node name="scormard" type="CharacterBody2D" groups=["Enemies"]]
-position = Vector2(712.318, 417.911)
 scale = Vector2(0.6, 0.6)
 collision_layer = 8
 collision_mask = 3

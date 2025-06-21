@@ -31,7 +31,6 @@ animations = [{
 size = Vector2(599.44, 123.004)
 
 [node name="pique" type="AnimatedSprite2D" groups=["enemies"]]
-position = Vector2(401.586, 1286)
 scale = Vector2(0.353535, 0.196148)
 sprite_frames = SubResource("1")
 animation = &"idle"

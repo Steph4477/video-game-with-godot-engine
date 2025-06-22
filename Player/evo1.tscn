@@ -89,7 +89,7 @@ shape = SubResource("RectangleShape2D_j3qaj")
 position = Vector2(149, 71)
 scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("2")
-animation = &"walk"
+animation = &"climb"
 
 [node name="HealthBar" parent="." instance=ExtResource("19_rbgwy")]
 position = Vector2(120, 22)

@@ -262,4 +262,4 @@ scale = Vector2(-1, 1)
 stream = ExtResource("16_kgp0u")
 
 [node name="Player" parent="." instance=ExtResource("1_t3xnj")]
-position = Vector2(2823, 1272)
+position = Vector2(2933, 471)

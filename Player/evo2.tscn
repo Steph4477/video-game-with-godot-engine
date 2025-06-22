@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://n8rno2pqq1d0"]
+[gd_scene load_steps=18 format=3 uid="uid://n8rno2pqq1d0"]
 
 [ext_resource type="Script" uid="uid://dyeicmeurx1u6" path="res://Player/evo_2.gd" id="1_px5qv"]
 [ext_resource type="Texture2D" uid="uid://5rhsrdp8mupj" path="res://Player/idle_abdo.png" id="2_br2bb"]
@@ -10,6 +10,11 @@
 [ext_resource type="Texture2D" uid="uid://c1787iafjhgb0" path="res://Player/walk_abdo.png" id="5_nowc1"]
 [ext_resource type="PackedScene" uid="uid://healthbar" path="res://Player/HealthBar/HealthBar.tscn" id="7_hq058"]
 [ext_resource type="Texture2D" uid="uid://b5exa7s1uydhd" path="res://Player/walk_abdo2.png" id="9_xq0a7"]
+[ext_resource type="Texture2D" uid="uid://doq4qkr8waawo" path="res://Player/walk_toile.png" id="10_tefnb"]
+[ext_resource type="AudioStream" uid="uid://dttjlu8e8c2o1" path="res://sounds/walk.wav" id="11_2hngd"]
+[ext_resource type="Texture2D" uid="uid://b8ol1o172dbd8" path="res://Player/walk_toile2.png" id="11_px5qv"]
+[ext_resource type="Texture2D" uid="uid://cfvmdeft0shfv" path="res://Player/walk_toile3.png" id="12_br2bb"]
+[ext_resource type="AudioStream" uid="uid://cwm8ik73bpjog" path="res://sounds/jump.wav" id="12_h0ylu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j3qaj"]
 size = Vector2(560, 659.575)
@@ -69,6 +74,20 @@ animations = [{
 "loop": true,
 "name": &"walk",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_tefnb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_px5qv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_br2bb")
+}],
+"loop": true,
+"name": &"walk_toile",
+"speed": 5.0
 }]
 
 [node name="player" type="CharacterBody2D" groups=["Player"]]
@@ -86,8 +105,8 @@ shape = SubResource("RectangleShape2D_j3qaj")
 position = Vector2(145, 69.7545)
 scale = Vector2(0.1, 0.094)
 sprite_frames = SubResource("2")
-animation = &"walk"
-frame_progress = 0.684669
+animation = &"walk_toile"
+frame_progress = 0.477821
 
 [node name="HealthBar" parent="." instance=ExtResource("7_hq058")]
 position = Vector2(120, 22)
@@ -108,3 +127,11 @@ limit_top = 0
 limit_right = 6500
 limit_bottom = 1500
 position_smoothing_enabled = true
+
+[node name="Sound" type="Node2D" parent="."]
+
+[node name="Walk" type="AudioStreamPlayer2D" parent="Sound"]
+stream = ExtResource("11_2hngd")
+
+[node name="Jump" type="AudioStreamPlayer2D" parent="Sound"]
+stream = ExtResource("12_h0ylu")

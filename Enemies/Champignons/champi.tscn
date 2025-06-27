@@ -1,7 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://4n2ixlgf8gvu"]
+[gd_scene load_steps=9 format=3 uid="uid://dfnra1ay6d3i"]
 
 [ext_resource type="Script" uid="uid://d2inirq4b63ga" path="res://scene/champi.gd" id="2"]
-[ext_resource type="Texture2D" uid="uid://c4kpb26seo26f" path="res://Enemies/Champignons/1.png" id="2_f3614"]
+[ext_resource type="Texture2D" uid="uid://bhqkhxgoboywm" path="res://Enemies/champi.png" id="2_gqsq2"]
 [ext_resource type="PackedScene" uid="uid://nx7n3qyhsmbr" path="res://Enemies/HealthBar.tscn" id="3_f3614"]
 
 [sub_resource type="Animation" id="1"]
@@ -56,8 +56,8 @@ JUMP_FORCE = -500
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(-0.260716, 55.8372)
-scale = Vector2(0.2, 0.163)
-texture = ExtResource("2_f3614")
+scale = Vector2(0.15, 0.163)
+texture = ExtResource("2_gqsq2")
 
 [node name="anim" type="AnimationPlayer" parent="."]
 libraries = {

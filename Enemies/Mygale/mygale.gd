@@ -10,6 +10,9 @@ extends CharacterBody2D
 @onready var anim_sprite = $AnimatedSprite
 @onready var muzzle = $FlipNode/Muzzle
 @onready var timer = $Timer
+@onready var scene_camera 
+
+const GRAVITY: int = 2000
 
 var can_shoot := true
 var is_attacking := false
@@ -24,13 +27,19 @@ var BaveFlac = preload("res://Loot/bave_flaque_static.tscn")
 var projectile = preload("res://Tir/toile.tscn")
 var ToilePlafond = preload("res://Effects/plafonds.tscn")
 
-const GRAVITY = 2000.0
 
 func _ready() -> void:
-	await get_tree().process_frame
+	while scene_camera == null:
+		await get_tree().process_frame
+		scene_camera = get_viewport().get_camera_2d()
+	
+	print("📷 Caméra détectée :", scene_camera.name)
+	
 	pv = max_hp
+	
 	find_and_bind_player()
-	anim_sprite.frame_changed.connect(_on_frame_changed)
+	
+	anim_sprite.frame_changed.connect(shoot_projectile)
 
 	# Phase d'apparition suspendue
 	await play_plafond_intro()
@@ -67,15 +76,28 @@ func apply_gravity(delta: float) -> void:
 func play_plafond_intro() -> void:
 	visible = false
 	set_physics_process(false)
-
+	# 1. Centrer temporairement la caméra sur la mygale
+	scene_camera.global_position = global_position
+	# 2. Ajouter la toile qui descend
 	var effet_toile = ToilePlafond.instantiate()
-	effet_toile.global_position = global_position + Vector2(0, -124)
+	effet_toile.global_position = global_position + Vector2(0, -354)
 	get_parent().add_child(effet_toile)
-
+	# 3. Attendre la fin de l'effet
 	await effet_toile.finished_descente
-	global_position = global_position + Vector2(0, 250)
+	# 4. Réactiver la mygale
+	global_position += Vector2(0, 250)
 	visible = true
 	set_physics_process(true)
+	# 5. Restituer le contrôle de la caméra au joueur
+	var player_camera := player.get_node_or_null("Camera2D")
+	if player_camera:
+		print("✔ Camera2D trouvé !!! ")
+		player_camera.make_current()
+	# 🧭 Recentrer la caméra manuellement sur le joueur
+		await get_tree().process_frame  # attendre que make_current prenne effet
+		player_camera.global_position = player.global_position
+	else:
+		print("❌ Camera2D du joueur introuvable !")
 
 func attack_and_shoot() -> void:
 	can_shoot = false
@@ -103,9 +125,6 @@ func shoot_projectile() -> void:
 			instance.direction = Vector2.RIGHT if anim_sprite.flip_h else Vector2.LEFT
 			await get_tree().create_timer(cooldown).timeout
 			can_shoot = true
-
-func _on_frame_changed() -> void:
-	shoot_projectile()
 
 func on_hit(damage_taken: int) -> void:
 	pv -= damage_taken
@@ -206,6 +225,3 @@ func _on_Area2D_body_entered(body: Node) -> void:
 		await attack_and_shoot()
 		if body.has_method("on_hit"):
 			body.on_hit(damage)
-
-func _on_Timer_timeout() -> void:
-	pass

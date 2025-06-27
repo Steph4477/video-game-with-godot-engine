@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://ey7tai08nmhn"]
+
+[ext_resource type="Script" uid="uid://cnjub0d5pvjfe" path="res://lvl1/Decors/porte/champignon/champi.gd" id="1_4wpis"]
+[ext_resource type="Texture2D" uid="uid://d0psd6h5udnsh" path="res://lvl1/Decors/porte/champignon/1.png" id="1_47tos"]
+
+[sub_resource type="SpriteFrames" id="1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_47tos")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(257.112, 233.38)
+
+[node name="Champi" type="Area2D"]
+collision_layer = 256
+script = ExtResource("1_4wpis")
+next_scene_path = "//lvl2/lvl_2.tscn"
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3.42468, 21.0677)
+shape = SubResource("2")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

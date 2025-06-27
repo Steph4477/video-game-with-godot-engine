@@ -38,8 +38,7 @@ func _ready():
 	print("🧪 _ready Player lancé")
 	
 	await get_tree().process_frame  # attendre que tout soit bien en place
-
-	var game_state = get_node_or_null("/root/GameManagement/SceneContainer/GameState")
+	game_state = get_node_or_null("/root/GameManagement/SceneContainer/GameState")
 	if game_state:
 		print("🎯 GameState trouvé depuis Player :", game_state)
 		set_game_state(game_state)
@@ -48,6 +47,8 @@ func _ready():
 	print("🧪 gs au ready :", game_state)
 	health_bar.max_value = max_hp
 	health_bar.value = pv
+
+
 
 func set_game_state(gs):
 	game_state = gs
@@ -86,19 +87,19 @@ func _physics_process(delta: float) -> void:
 		direction = 1
 	velocity.x = direction * speed
 	
-	# Flip sprite
+	# Flip sprite direction marche
 	if direction > 0:
 		$anim.flip_h = false
 	elif direction < 0:
 		$anim.flip_h = true
 	
-	# Détecter si on est en train de grimper sur bananier
+	# Détecte si on est en train de grimper sur bananier
 	if can_climb and Input.is_action_pressed("ui_up"):
 		is_climbing = true
 	elif !can_climb:
 		is_climbing = false
 	
-	# Détecter si on est en train de grimper sur cocotier
+	# Détecte si on est en train de grimper sur cocotier
 	if can_climbCoco and Input.is_action_pressed("ui_up"):
 		is_climbingCoco = true
 	elif !can_climbCoco:

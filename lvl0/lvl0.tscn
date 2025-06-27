@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://l2fes654ck" path="res://lvl0/lvl_0.gd" id="1_dqkoy"]
 [ext_resource type="Texture2D" uid="uid://c0wq2d10u4c5s" path="res://lvl0/FeuillePersonnage.png" id="2_6m8ub"]
-[ext_resource type="Texture2D" uid="uid://bhqkhxgoboywm" path="res://Enemies/champi.png" id="3_xeqbx"]
+[ext_resource type="Texture2D" path="res://Enemies/champi.png" id="3_xeqbx"]
 [ext_resource type="Texture2D" uid="uid://b36h1sf05kr75" path="res://Enemies/Scormard/enemyprofil.png" id="4_xeqbx"]
 [ext_resource type="Texture2D" uid="uid://cv04ehcq6nabx" path="res://Player/jump2_abdo.png" id="5_d4cyp"]
 [ext_resource type="Texture2D" uid="uid://du8hyg48pnw4q" path="res://Interface/bouton_Démarrer.png" id="6_bfdrb"]

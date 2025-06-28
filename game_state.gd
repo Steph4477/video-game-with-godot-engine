@@ -43,7 +43,7 @@ func load_level(scene_path: String) -> void:
 	if player and player.get_parent():
 		player.get_parent().remove_child(player)
 
-	# Supprimer tous les enfants sauf le fade
+	# Supprimer tous les enfants sauf le fade et le joueur
 	for child in get_children():
 		if child != player and child != fade:
 			remove_child(child)
@@ -58,6 +58,10 @@ func load_level(scene_path: String) -> void:
 
 	# Ajouter le joueur dans le nouveau niveau
 	level.add_child(player)
+
+	# ✅ Réinitialise le joueur (déverrouiller anim / physique)
+	if "reset_state" in player:
+		player.reset_state()
 
 	# Positionner le joueur
 	var spawn = level.find_child("SpawnPoint", true, false)

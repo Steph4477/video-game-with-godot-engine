@@ -52,8 +52,6 @@ func _ready():
 	health_bar.max_value = max_hp
 	health_bar.value = pv
 
-
-
 func set_game_state(gs):
 	game_state = gs
 	print("🎯 GameState reçu :", game_state)
@@ -295,6 +293,12 @@ func SkillLoop() -> void:
 			can_fire_coco = true
 		else:
 			print("❌ Plus de cocos !")
+
+# reset des animations à chaque changements de lvl (geré dans le GameState)
+func reset_state() -> void:
+	animation_locked = false
+	input_locked = false
+	set_physics_process(true)
 
 # --- Signaux boutons UI ---
 #func _on_left_pressed() -> void:

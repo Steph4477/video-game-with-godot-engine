@@ -4,6 +4,8 @@ var banane_count = 0
 var coco_count = 0
 var can_fire_banane = false
 var can_fire_coco = false
+var fade_scene = preload("res://fade.tscn")
+var fade
 
 var player_scene = preload("res://Player/evo1.tscn")
 var player: Node = null
@@ -19,6 +21,11 @@ func _ready():
 
 	# Charger le premier niveau
 	load_level("res://lvl1/lvl1.tscn")
+	
+	# fondu changement de niveau 
+	fade = fade_scene.instantiate()
+	add_child(fade)
+
 
 func set_player(p: Node) -> void:
 	player = p
@@ -28,13 +35,17 @@ func set_player(p: Node) -> void:
 func load_level(scene_path: String) -> void:
 	print("🚪 Chargement du niveau :", scene_path)
 
-	# Retirer le joueur de la scène actuelle si nécessaire
+	# 🕶️ FADE OUT
+	if fade:
+		await fade.fade_out()
+
+	# Retirer le joueur si déjà en scène
 	if player and player.get_parent():
 		player.get_parent().remove_child(player)
 
-	# Supprimer tous les enfants (niveaux précédents)
+	# Supprimer tous les enfants sauf le fade
 	for child in get_children():
-		if child != player:
+		if child != player and child != fade:
 			remove_child(child)
 			child.queue_free()
 
@@ -48,14 +59,6 @@ func load_level(scene_path: String) -> void:
 	# Ajouter le joueur dans le nouveau niveau
 	level.add_child(player)
 
-	# Activer la caméra si présente dans le joueur
-	var cam := player.get_node_or_null("Camera2D")
-	if cam:
-		cam.make_current()
-		print("📸 Caméra activée via Player")
-	else:
-		print("❌ Caméra introuvable dans le joueur")
-
 	# Positionner le joueur
 	var spawn = level.find_child("SpawnPoint", true, false)
 	if spawn:
@@ -65,9 +68,13 @@ func load_level(scene_path: String) -> void:
 		player.global_position = Vector2.ZERO
 		print("⚠️ Pas de SpawnPoint trouvé")
 
-	# Caméra active
+	# Activer la caméra si elle existe
 	if player.has_node("Camera2D"):
 		player.get_node("Camera2D").make_current()
 		print("📸 Caméra activée")
+
+	# 🕶️ FADE IN
+	if fade:
+		await fade.fade_in()
 
 	print_tree_pretty()

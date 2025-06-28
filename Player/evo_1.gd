@@ -32,6 +32,10 @@ var moving_left = false
 var moving_right = false
 var jumping = false
 var moving_down = false
+# passage de porte
+var animation_locked = false
+var input_locked = false
+
 
 func _ready():
 	$Camera2D.make_current()
@@ -72,6 +76,9 @@ func set_can_climbCoco(value: bool) -> void:
 		is_climbingCoco = false
 
 func _physics_process(delta: float) -> void:
+	if animation_locked:
+		return  # Ignore toute physique pendant une animation verrouillée si passage de porte
+	
 	# Gravité
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -89,9 +96,10 @@ func _physics_process(delta: float) -> void:
 	
 	# Flip sprite direction marche
 	if direction > 0:
-		$anim.flip_h = false
+		$Sprite.scale.x = abs($Sprite.scale.x)
 	elif direction < 0:
-		$anim.flip_h = true
+		$Sprite.scale.x = -abs($Sprite.scale.x)
+
 	
 	# Détecte si on est en train de grimper sur bananier
 	if can_climb and Input.is_action_pressed("ui_up"):
@@ -146,6 +154,8 @@ func _physics_process(delta: float) -> void:
 		SkillLoop()
 
 func update_animation() -> void:
+	if animation_locked:
+		return
 	if is_climbing:
 		$anim.play("climb")
 		return # Empêche de passer aux conditions suivantes !

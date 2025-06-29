@@ -4,10 +4,11 @@
 [ext_resource type="Script" uid="uid://qtehl3144tku" path="res://scene/banane.gd" id="2"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ja31b"]
-radius = 7.0
+radius = 36.0
+height = 96.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ja31b"]
-radius = 7.07107
+radius = 32.7567
 
 [node name="banane" type="RigidBody2D"]
 collision_layer = 256

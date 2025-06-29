@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://KinematicBody2D.gd" type="Script" id=1]
-[ext_resource path="res://scene/moustiquos.png" type="Texture" id=2]
-[ext_resource path="res://hp/barre/lifebar_fill.png" type="Texture" id=3]
-[ext_resource path="res://hp/barre/lifebar_bg.png" type="Texture" id=4]
+[ext_resource type="Script" uid="uid://bx76ydejrvjkn" path="res://scene/mousticos.gd" id="1"]
+[ext_resource type="Texture" uid="uid://vrtm0xintk1s" path="res://scene/moustiquos.png" id="2"]
+[ext_resource type="Texture" path="res://hp/barre/lifebar_fill.png" id="3"]
+[ext_resource type="Texture" path="res://hp/barre/lifebar_bg.png" id="4"]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 41.584, 15.0979 )

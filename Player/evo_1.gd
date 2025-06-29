@@ -253,10 +253,11 @@ func apply_web_effect():
 func SkillLoop() -> void:
 	#direction du tir
 	var direction: int
-	if $anim.flip_h:
+	if $Sprite.scale.x < 0:
 		direction = -1
 	else:
 		direction = 1
+
 
 	# config touche tir de banane (ui_accept)
 	if Input.is_action_just_pressed("ui_accept") and can_fire_banane:

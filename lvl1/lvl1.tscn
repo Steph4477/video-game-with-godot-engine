@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://f001f0m7opwe"]
+[gd_scene load_steps=37 format=3 uid="uid://f001f0m7opwe"]
 
 [ext_resource type="Script" uid="uid://cxpvifylv12vh" path="res://lvl1/lvl_1.gd" id="1_vc1ff"]
 [ext_resource type="PackedScene" uid="uid://ct7cfs6fktu4n" path="res://lvl1/Decors/tileForet.tscn" id="2_nklpm"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://du0o733kb7eqe" path="res://Loot/graine/seed.tscn" id="15_kgp0u"]
 [ext_resource type="PackedScene" uid="uid://cn0x2ue3ec5ba" path="res://Interface/Hud.tscn" id="15_vc1ff"]
 [ext_resource type="PackedScene" uid="uid://ygnw6ieob3r5" path="res://lvl1/Decors/porte/lvl2/PorteLvl2.tscn" id="16_211dj"]
+[ext_resource type="PackedScene" uid="uid://cyglsdydp0fhr" path="res://Enemies/Moustique/moustique.tscn" id="16_cvxqb"]
 [ext_resource type="PackedScene" uid="uid://c5bug2b6apnq6" path="res://ItemsDecors/MobilePlatform/mobile_plat_form.tscn" id="16_f0kof"]
 [ext_resource type="AudioStream" uid="uid://bqpsj12o61ss0" path="res://sounds/lvl1.mp3" id="16_kgp0u"]
 
@@ -162,7 +163,7 @@ scale = Vector2(123.511, -685.622)
 shape = SubResource("RectangleShape2D_t3xnj")
 
 [node name="CollisionShape2D9" type="CollisionShape2D" parent="Platforms"]
-position = Vector2(67109, 18013.7)
+position = Vector2(78082.8, 17930.6)
 rotation = -3.14159
 scale = Vector2(144.607, 694.703)
 shape = SubResource("RectangleShape2D_t3xnj")
@@ -217,10 +218,10 @@ shape = SubResource("RectangleShape2D_0804m")
 position = Vector2(3190, 588)
 
 [node name="Cocotier" parent="." instance=ExtResource("13_f0kof")]
-position = Vector2(3548, 1270)
+position = Vector2(3484, 1282)
 
 [node name="CocoLoot" parent="." instance=ExtResource("14_211dj")]
-position = Vector2(3612, 1058)
+position = Vector2(424, 1433)
 
 [node name="Bananier" parent="." instance=ExtResource("13_ofnsq")]
 position = Vector2(3978, 1264)
@@ -235,7 +236,7 @@ position = Vector2(3107, 1254)
 scale = Vector2(-1, 1)
 
 [node name="BananeLoot2" parent="." instance=ExtResource("14_e63vn")]
-position = Vector2(3043, 1208)
+position = Vector2(537, 1438)
 rotation = 3.14159
 scale = Vector2(1, -1)
 
@@ -256,11 +257,17 @@ stream = ExtResource("16_kgp0u")
 position = Vector2(309, 1409)
 
 [node name="MobilePlatForm" parent="." instance=ExtResource("16_f0kof")]
-position = Vector2(1078, 1241)
+position = Vector2(2825, 337)
 direction = 1
 
 [node name="PorteLvl2" parent="." instance=ExtResource("16_211dj")]
 position = Vector2(7268, 1283)
 
 [node name="Seed" parent="." instance=ExtResource("15_kgp0u")]
-position = Vector2(766, 1444)
+position = Vector2(2803, 569)
+
+[node name="MobilePlatForm2" parent="." instance=ExtResource("16_f0kof")]
+position = Vector2(2155, 702)
+
+[node name="Moustique" parent="." instance=ExtResource("16_cvxqb")]
+position = Vector2(1588, 1459)

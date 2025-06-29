@@ -8,6 +8,7 @@ extends CharacterBody2D
 @onready var health_bar = $HealthBar/ProgressBar
 @onready var banane_label = get_node("../Hud/HBoxContainerBanane/BananeCountLabel")
 @onready var coco_label = get_node("../Hud/HBoxContainerCoco/CocoCountLabel")
+@onready var seed_label = get_node("../Hud/HBoxContainerSeed/SeedCountLabel")
 
 # Initialisation des variables du GameState
 var game_state
@@ -15,6 +16,8 @@ var can_fire_banane  # Tir désactivé au début
 var banane_count 
 var can_fire_coco # Tir désactivé au début
 var coco_count
+var seed_count = 0
+
 # Double Saut
 var jump_count = 0
 # tir
@@ -38,29 +41,20 @@ var animation_locked = false
 
 func _ready():
 	$Camera2D.make_current()
-	print("🧪 _ready Player lancé")
-	
 	await get_tree().process_frame  # attendre que tout soit bien en place
 	game_state = get_node_or_null("/root/GameManagement/SceneContainer/GameState")
-	if game_state:
-		print("🎯 GameState trouvé depuis Player :", game_state)
-		set_game_state(game_state)
-	else:
-		print("❌ GameState introuvable depuis Player")
-	print("🧪 gs au ready :", game_state)
+	set_game_state(game_state)
 	health_bar.max_value = max_hp
 	health_bar.value = pv
 
 func set_game_state(gs):
-	game_state = gs
-	print("🎯 GameState reçu :", game_state)
-
-	# Maintenant que GameState est là, on peut utiliser ses données
+	# comptabilisation dans le game state
 	banane_count = game_state.banane_count
 	coco_count = game_state.coco_count
+	seed_count = game_state.seed_count
 	can_fire_banane = game_state.can_fire_banane
 	can_fire_coco = game_state.can_fire_coco
-	gs.set_player(self)
+	game_state.set_player(self)
 
 func set_can_climb(value: bool) -> void:
 	can_climb = value
@@ -202,6 +196,10 @@ func update_coco_display():
 	if coco_label:
 		coco_label.text = "x %d" % coco_count
 
+func update_seed_display():
+	if seed_label:
+		seed_label.text = "x %d" % seed_count
+
 # loot
 func collect_banane(amount: int = 1, enable_shooting: bool = false) -> void:
 	banane_count += amount
@@ -234,6 +232,16 @@ func collect_coco(amount: int = 1, enable_shooting: bool = false) -> void:
 	#mise a jour de l'HUD
 	update_coco_display()
 	print("🥥 Coco collectées :", coco_count)
+
+func collect_seed(amount: int = 1) -> void:
+	seed_count += amount
+	# Récuperation des données des variables de GameState
+	if game_state:
+		game_state.seed_count = seed_count
+		print("✅ Seed_count = :", game_state.seed_count)
+	#mise a jour de l'HUD
+	update_seed_display()
+	print("Graines collectées :", seed_count)
 
 # ralentissement (toile mygale)
 func apply_web_effect():

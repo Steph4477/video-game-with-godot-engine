@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cn0x2ue3ec5ba"]
+[gd_scene load_steps=14 format=3 uid="uid://cn0x2ue3ec5ba"]
 
 [ext_resource type="Texture2D" uid="uid://r4tm6siy4qma" path="res://Interface/gauche.png" id="1_1oqh2"]
 [ext_resource type="Texture2D" uid="uid://b6ct81pls4cp0" path="res://Interface/gauche_enfonce.png" id="2_6yvg8"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://buis4d4klok3u" path="res://Interface/bas.png" id="9_b0qj5"]
 [ext_resource type="Texture2D" uid="uid://d3n7vq0uhj065" path="res://Tir/banane.png" id="11_6yvg8"]
 [ext_resource type="Texture2D" uid="uid://d4e2mf80r1yjp" path="res://Tir/coco.png" id="12_6yv8p"]
+[ext_resource type="Texture2D" uid="uid://y42suurvkr0t" path="res://Loot/graine/graineHUD.png" id="13_voibu"]
 
 [node name="Hud" type="CanvasLayer"]
 
@@ -75,5 +76,19 @@ layout_mode = 2
 texture = ExtResource("12_6yv8p")
 
 [node name="CocoCountLabel" type="Label" parent="HBoxContainerCoco"]
+layout_mode = 2
+text = "0"
+
+[node name="HBoxContainerSeed" type="HBoxContainer" parent="."]
+offset_left = 1711.0
+offset_top = 53.0
+offset_right = 1848.0
+offset_bottom = 159.0
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainerSeed"]
+layout_mode = 2
+texture = ExtResource("13_voibu")
+
+[node name="SeedCountLabel" type="Label" parent="HBoxContainerSeed"]
 layout_mode = 2
 text = "0"

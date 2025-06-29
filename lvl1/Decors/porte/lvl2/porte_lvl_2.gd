@@ -12,21 +12,11 @@ func _on_body_entered(body):
 				body.animation_locked = true
 				body.set_physics_process(false)
 
-				# ❌ Empêche tir ou autres interactions
-				body.input_locked = true  # si tu veux l’utiliser plus tard
-
 				anim_player.play("door")
 				await anim_player.animation_finished
+				change_scene()
 
-				# ✅ Optionnel : fondu noir ici (si tu veux)
-				# await _start_fade_out()
-
-				_changer_scene()
-				return
-	_changer_scene()
-
-
-func _changer_scene():
+func change_scene():
 	await get_tree().create_timer(0.2).timeout
 	var game_state = get_node_or_null("/root/GameManagement/SceneContainer/GameState")
 	if game_state:

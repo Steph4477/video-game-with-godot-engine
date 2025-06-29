@@ -1,18 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://ygnw6ieob3r5"]
+[gd_scene load_steps=4 format=3 uid="uid://ygnw6ieob3r5"]
 
 [ext_resource type="Script" uid="uid://buum5xilja1ln" path="res://lvl1/Decors/porte/lvl2/porte_lvl_2.gd" id="1_3bb6p"]
 [ext_resource type="Texture2D" uid="uid://spc36hk1ab2w" path="res://lvl1/Decors/porte/lvl2/P1.png" id="2_buhlm"]
-
-[sub_resource type="SpriteFrames" id="1"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_buhlm")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
 
 [sub_resource type="RectangleShape2D" id="2"]
 size = Vector2(5.875, 217)
@@ -22,9 +11,9 @@ collision_layer = 256
 script = ExtResource("1_3bb6p")
 next_scene_path = "res://lvl2/lvl_2.tscn"
 
-[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-sprite_frames = SubResource("1")
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(3, -361)
+texture = ExtResource("2_buhlm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 45)

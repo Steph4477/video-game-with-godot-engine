@@ -266,4 +266,4 @@ position = Vector2(1078, 1241)
 direction = 1
 
 [node name="PorteLvl2" parent="." instance=ExtResource("16_211dj")]
-position = Vector2(365, 1325)
+position = Vector2(366, 1331)

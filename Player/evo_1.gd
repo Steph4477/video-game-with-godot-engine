@@ -34,7 +34,6 @@ var jumping = false
 var moving_down = false
 # passage de porte
 var animation_locked = false
-var input_locked = false
 
 
 func _ready():
@@ -297,8 +296,9 @@ func SkillLoop() -> void:
 # reset des animations à chaque changements de lvl (geré dans le GameState)
 func reset_state() -> void:
 	animation_locked = false
-	input_locked = false
 	set_physics_process(true)
+	$anim.stop()
+
 
 # --- Signaux boutons UI ---
 #func _on_left_pressed() -> void:
